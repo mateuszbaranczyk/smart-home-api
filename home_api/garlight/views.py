@@ -1,19 +1,14 @@
 from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from rest_framework.viewsets import (
-    ModelViewSet,
-    GenericViewSet,
-    ReadOnlyModelViewSet,
-)
-from rest_framework.decorators import action
-from rest_framework.exceptions import MethodNotAllowed, NotFound
-from rest_framework.request import Request
 from garlight.bulbs import discover_bulbs
 from garlight.models import YeelightBulb
 from garlight.serializers import BulbSerializer, NameSerializer
-
+from rest_framework.decorators import action
+from rest_framework.exceptions import MethodNotAllowed, NotFound
+from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 
 class BulbViewSet(ModelViewSet):

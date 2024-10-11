@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.urls import path
-from rest_framework.routers import DefaultRouter
-
 from garlight.views import BulbViewSet, ColorViewSet, PowerViewSet
+from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r"bulbs", BulbViewSet, basename="bulbs")

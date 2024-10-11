@@ -1,10 +1,5 @@
-from rest_framework.serializers import (
-    ModelSerializer,
-    BaseSerializer,
-    CharField,
-)
-
 from garlight.models import YeelightBulb
+from rest_framework.serializers import ModelSerializer
 
 
 class BulbSerializer(ModelSerializer):
