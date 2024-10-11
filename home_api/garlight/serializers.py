@@ -6,3 +6,4 @@ class BulbSerializer(ModelSerializer):
     class Meta:
         model = YeelightBulb
         fields = '__all__'
+        read_only_fields = ("bulb_id", "ip")
