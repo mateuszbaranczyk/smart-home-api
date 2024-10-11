@@ -23,6 +23,6 @@ from garlight.views import BulbListView, BulbView, DeiscoverView
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("discover/", DeiscoverView.as_view(), name="discover"),
-    path("bulb/<str:name>/", BulbView.as_view()),
+    path("bulb/<str:name>/", BulbView.as_view(), name="bulb-detail"),
     path("bulb-list/", BulbListView.as_view(), name="bulb-list"),
 ]
