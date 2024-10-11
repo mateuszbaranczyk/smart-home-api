@@ -16,15 +16,13 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-from garlight.views import DeiscoverView, BulbView
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from django.urls import include, path
+from garlight.views import DeiscoverView, BulbView, BulbListView
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path("discover/", DeiscoverView.as_view(), name="discover"),
-    path("bulb/", BulbView.as_view())
+    path("bulb/<str:name>/", BulbView.as_view()),
+    path("bulb-list/", BulbListView.as_view(), name="bulb-list"),
 ]
