@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "home-api"
+version = "0.1.0"
+description = "garlight fork to django"
+authors = ["kundziorro <mateusz.baranczyk@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+djangorestframework = "^3.15.2"
+yeelight = "^0.7.14"
+drf-spectacular = "^0.27.2"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.1.1"
+black = "^24.10.0"
+isort = "^5.13.2"
+mypy = "^1.11.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
