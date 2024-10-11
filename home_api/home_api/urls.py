@@ -2,10 +2,11 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from garlight.views import BulbViewSet
+from garlight.views import BulbViewSet, PowerViewSet
 
 router = DefaultRouter()
-router.register(r"bulbs", BulbViewSet)
+router.register(r"bulbs", BulbViewSet, basename="bulbs")
+router.register(r"on-off", PowerViewSet, basename="power")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
