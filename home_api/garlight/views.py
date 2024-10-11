@@ -11,7 +11,7 @@ from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.request import Request
 from garlight.bulbs import discover_bulbs
 from garlight.models import YeelightBulb
-from garlight.serializers import BulbSerializer, PowerSerializer
+from garlight.serializers import BulbSerializer, NameSerializer
 
 from rest_framework.response import Response
 
@@ -50,7 +50,7 @@ class BulbViewSet(ModelViewSet):
 
 class PowerViewSet(ReadOnlyModelViewSet):
     queryset = YeelightBulb.objects.all()
-    serializer_class = PowerSerializer
+    serializer_class = NameSerializer
     lookup_field = "name"
 
     def retrieve(request: Request, *args, **kwargs):

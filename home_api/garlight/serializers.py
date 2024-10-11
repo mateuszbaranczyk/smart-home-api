@@ -1,4 +1,8 @@
-from rest_framework.serializers import ModelSerializer, BaseSerializer, CharField
+from rest_framework.serializers import (
+    ModelSerializer,
+    BaseSerializer,
+    CharField,
+)
 
 from garlight.models import YeelightBulb
 
@@ -9,7 +13,8 @@ class BulbSerializer(ModelSerializer):
         fields = "__all__"
         read_only_fields = ("bulb_id", "ip")
 
-class PowerSerializer(ModelSerializer):
+
+class NameSerializer(ModelSerializer):
     class Meta:
         model = YeelightBulb
         fields = ("name",)
