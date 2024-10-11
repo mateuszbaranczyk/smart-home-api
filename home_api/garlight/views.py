@@ -7,7 +7,7 @@ from rest_framework.viewsets import (
     ReadOnlyModelViewSet,
 )
 from rest_framework.decorators import action
-from rest_framework.exceptions import MethodNotAllowed
+from rest_framework.exceptions import MethodNotAllowed, NotFound
 from rest_framework.request import Request
 from garlight.bulbs import discover_bulbs
 from garlight.models import YeelightBulb
@@ -55,3 +55,29 @@ class PowerViewSet(ReadOnlyModelViewSet):
 
     def retrieve(request: Request, *args, **kwargs):
         return Response("ok")
+
+
+class ColorViewSet(ReadOnlyModelViewSet):
+    queryset = YeelightBulb.objects.all()
+    serializer_class = NameSerializer
+    lookup_field = "name"
+
+    def retrieve(request: Request, *args, **kwargs):
+        try:
+            color = list(request.request.query_params.keys())[0]
+        except IndexError:
+            raise NotFound(detail="Color not found")
+        return Response(f"{color}")
+
+
+class TemperatureViewSet(ReadOnlyModelViewSet):
+    queryset = YeelightBulb.objects.all()
+    serializer_class = NameSerializer
+    lookup_field = "name"
+
+    def retrieve(request: Request, *args, **kwargs):
+        try:
+            temperature = list(request.request.query_params.keys())[0]
+        except IndexError:
+            raise NotFound(detail="Temperature not found")
+        return Response(f"{temperature}")
