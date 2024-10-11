@@ -1,3 +1,4 @@
 from django.contrib import admin
+from garlight.models import YeelightBulb
 
-# Register your models here.
+admin.site.register(YeelightBulb)
