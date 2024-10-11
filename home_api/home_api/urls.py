@@ -17,8 +17,8 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
-from garlight.views import DeiscoverView, BulbView, BulbListView
 
+from garlight.views import BulbListView, BulbView, DeiscoverView
 
 urlpatterns = [
     path("admin/", admin.site.urls),

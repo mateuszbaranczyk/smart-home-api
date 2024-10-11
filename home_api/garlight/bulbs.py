@@ -1,7 +1,6 @@
 from yeelight import Bulb, CronType, SceneClass, discover_bulbs
 
 
-
 class BulbException(Exception):
     pass
 

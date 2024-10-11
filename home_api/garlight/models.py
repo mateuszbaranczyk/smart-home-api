@@ -1,4 +1,4 @@
-from django.db.models import Model, CharField
+from django.db.models import CharField, Model
 
 
 class YeelightBulb(Model):
