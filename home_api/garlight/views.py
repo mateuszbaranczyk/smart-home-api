@@ -1,22 +1,16 @@
 from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from garlight.bulbs import discover_bulbs
-from garlight.models import Timer, YeelightBulb, Color, Temperature
-from garlight.serializers import (
-    BulbSerializer,
-    NameSerializer,
-    ColorSerializer,
-    TemperatureSerializer,
-    TimerSerializer,
-)
+from garlight.bulbs import SmartBulb, discover_bulbs
+from garlight.models import Color, Temperature, Timer, YeelightBulb
+from garlight.serializers import (BulbSerializer, ColorSerializer,
+                                  NameSerializer, TemperatureSerializer,
+                                  TimerSerializer)
 from rest_framework.decorators import action
-from rest_framework.exceptions import MethodNotAllowed
+from rest_framework.exceptions import MethodNotAllowed, NotFound
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
-from garlight.bulbs import SmartBulb
-from rest_framework.exceptions import NotFound
 
 
 class BulbViewSet(ModelViewSet):
@@ -105,9 +99,7 @@ class BulbTemperatureViewSet(YellightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         temperature_name = self.get_query_key(request)
-        temperature = (
-            Temperature.objects.all().filter(name=temperature_name).first()
-        )
+        temperature = Temperature.objects.all().filter(name=temperature_name).first()
         bulb = SmartBulb(instance)
         result = bulb.set_temperature(temperature)
         return Response(result)

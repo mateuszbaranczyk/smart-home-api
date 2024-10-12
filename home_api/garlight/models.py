@@ -1,4 +1,4 @@
-from django.db.models import CharField, Model, IntegerField
+from django.db.models import CharField, IntegerField, Model
 
 
 class YeelightBulb(Model):
@@ -46,6 +46,7 @@ class Color(Model):
         if self.brightness not in range(0, 101):
             raise ValueError("Brightness out of range!")
         return super().clean()
+
 
 class Timer(Model):
     minutes = IntegerField(unique=True)

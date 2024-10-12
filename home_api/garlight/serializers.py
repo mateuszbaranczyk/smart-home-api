@@ -1,4 +1,4 @@
-from garlight.models import Timer, YeelightBulb, Temperature, Color
+from garlight.models import Color, Temperature, Timer, YeelightBulb
 from rest_framework.serializers import ModelSerializer
 
 
