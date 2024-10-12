@@ -10,11 +10,12 @@ from garlight.serializers import (
     TemperatureSerializer,
 )
 from rest_framework.decorators import action
-from rest_framework.exceptions import MethodNotAllowed, NotFound
+from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from garlight.mixins import YellightViewMixin
+from garlight.bulbs import SmartBulb
 
 
 class BulbViewSet(ModelViewSet):
@@ -54,8 +55,11 @@ class BulbPowerViewSet(ReadOnlyModelViewSet):
     serializer_class = NameSerializer
     lookup_field = "name"
 
-    def retrieve(request: Request, *args, **kwargs):
-        return Response("ok")
+    def retrieve(self, request: Request, *args, **kwargs):
+        instance = self.get_object()
+        bulb = SmartBulb(instance)
+        result = bulb.on_off()
+        return Response(result)
 
 
 class ColorViewSet(ModelViewSet):
@@ -74,9 +78,12 @@ class BulbColorViewSet(ReadOnlyModelViewSet, YellightViewMixin):
     lookup_field = "name"
 
     def retrieve(self, request: Request, *args, **kwargs):
-        color = self.get_query_key(request)
-        color_data = Color.objects.all().filter(name=color).first()
-        return Response(f"{color_data}")
+        instance = self.get_object()
+        color_name = self.get_query_key(request)
+        color = Color.objects.all().filter(name=color_name).first()
+        bulb = SmartBulb(instance)
+        result = bulb.set_color(color)
+        return Response(result)
 
 
 class BulbTemperatureViewSet(ReadOnlyModelViewSet, YellightViewMixin):
@@ -85,8 +92,11 @@ class BulbTemperatureViewSet(ReadOnlyModelViewSet, YellightViewMixin):
     lookup_field = "name"
 
     def retrieve(self, request: Request, *args, **kwargs):
-        temperature = self.get_query_key(request)
-        temperature_data = (
-            Temperature.objects.all().filter(name=temperature).first()
+        instance = self.get_object()
+        temperature_name = self.get_query_key(request)
+        temperature = (
+            Temperature.objects.all().filter(name=temperature_name).first()
         )
-        return Response(f"{temperature_data}")
+        bulb = SmartBulb(instance)
+        result = bulb.set_temperature(temperature)
+        return Response(result)
