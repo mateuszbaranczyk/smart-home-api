@@ -10,9 +10,13 @@ from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 from garlight.bulbs import SmartBulb, discover_bulbs
 from garlight.models import Color, Temperature, Timer, YeelightBulb
-from garlight.serializers import (BulbSerializer, ColorSerializer,
-                                  NameSerializer, TemperatureSerializer,
-                                  TimerSerializer)
+from garlight.serializers import (
+    BulbSerializer,
+    ColorSerializer,
+    NameSerializer,
+    TemperatureSerializer,
+    TimerSerializer,
+)
 
 
 class BulbViewSet(ModelViewSet):
@@ -20,7 +24,46 @@ class BulbViewSet(ModelViewSet):
     serializer_class = BulbSerializer
     lookup_field = "name"
 
-    def create(self, request, *args, **kwargs):
+    def get_serializer_context(self) -> dict:
+        context = super().get_serializer_context()
+        context["urls"] = self._get_action_urls()
+        return context
+
+    def _get_action_urls(self) -> dict:
+        actions = {
+            "sypialnia": self._generate_urls("sypialnia"),
+            "salon": self._generate_urls("salon"),
+        }
+        return actions
+
+    def _generate_urls(
+        self,
+        device,
+    ) -> list:
+        host = "localhost:8000"
+        endpoints = ["timer", "temperature", "color"]
+        color_presets = ["red", "purple"]
+        temperature_presets = ["cold", "warm"]
+        timer_presets = ["15", "30"]
+        on_off = f"{host}/on-off/{device}/"
+        urls = []
+        urls.append(on_off)
+        for endpoint in endpoints:
+            if endpoint == "color":
+                for color in color_presets:
+                    url = f"{host}/{endpoint}/{device}?{color}"
+                    urls.append(url)
+            elif endpoint == "temperature":
+                for temperature in temperature_presets:
+                    url = f"{host}/{endpoint}/{device}?{temperature}"
+                    urls.append(url)
+            elif endpoint == "timer":
+                for timer in timer_presets:
+                    url = f"{host}/{endpoint}/{device}?{timer}"
+                    urls.append(url)
+        return urls
+
+    def create(self, request: Request, *args, **kwargs):
         msg = "Please use 'bulbs/discover/' endpoint for discover and create new device"
         raise MethodNotAllowed("POST", detail=msg)
 
@@ -32,9 +75,7 @@ class BulbViewSet(ModelViewSet):
         YeelightBulb.objects.bulk_create(bulbs)
         return HttpResponseRedirect(reverse("bulbs-list"))
 
-    def _create_db_obj(
-        self, discovered: dict, existing: QuerySet
-    ) -> list[YeelightBulb]:
+    def _create_db_obj(self, discovered: dict, existing: QuerySet) -> list:
         bulbs = [
             YeelightBulb(
                 bulb_id=device["capabilities"]["id"],
@@ -86,12 +127,6 @@ class YellightViewSet(ReadOnlyModelViewSet):
             raise NotFound(detail="Query keys not found")
         return keys
 
-    def actions(self, model: Model):
-        presets = model.objects.all().values_list("name", flat=True)
-        devices = self.queryset.values_list("name", flat=True)
-        actions = [f"{device}/?{preset}" for preset in presets for device in devices]
-        return actions
-
 
 class BulbColorViewSet(YellightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
@@ -107,7 +142,9 @@ class BulbTemperatureViewSet(YellightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         temperature_name = self.get_query_key(request)
-        temperature = Temperature.objects.all().filter(name=temperature_name).first()
+        temperature = (
+            Temperature.objects.all().filter(name=temperature_name).first()
+        )
         bulb = SmartBulb(instance)
         result = bulb.set_temperature(temperature)
         return Response(result)

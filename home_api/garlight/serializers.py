@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from garlight.models import Color, Temperature, Timer, YeelightBulb
 
@@ -8,6 +8,13 @@ class BulbSerializer(ModelSerializer):
         model = YeelightBulb
         fields = "__all__"
         read_only_fields = ("bulb_id", "ip")
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        urls = self.context.get("urls", None)
+        if urls:
+            representation["urls"] = urls[instance.name]
+        return representation
 
 
 class NameSerializer(ModelSerializer):
