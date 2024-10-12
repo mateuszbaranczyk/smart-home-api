@@ -2,13 +2,19 @@ from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from garlight.bulbs import discover_bulbs
-from garlight.models import YeelightBulb
-from garlight.serializers import BulbSerializer, NameSerializer
+from garlight.models import YeelightBulb, Color, Temperature
+from garlight.serializers import (
+    BulbSerializer,
+    NameSerializer,
+    ColorSerializer,
+    TemperatureSerializer,
+)
 from rest_framework.decorators import action
 from rest_framework.exceptions import MethodNotAllowed, NotFound
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
+from garlight.mixins import YellightViewMixin
 
 
 class BulbViewSet(ModelViewSet):
@@ -43,7 +49,7 @@ class BulbViewSet(ModelViewSet):
         return bulbs
 
 
-class PowerViewSet(ReadOnlyModelViewSet):
+class BulbPowerViewSet(ReadOnlyModelViewSet):
     queryset = YeelightBulb.objects.all()
     serializer_class = NameSerializer
     lookup_field = "name"
@@ -52,27 +58,35 @@ class PowerViewSet(ReadOnlyModelViewSet):
         return Response("ok")
 
 
-class ColorViewSet(ReadOnlyModelViewSet):
+class ColorViewSet(ModelViewSet):
+    queryset = Color.objects.all()
+    serializer_class = ColorSerializer
+
+
+class TemperatureViewSet(ModelViewSet):
+    queryset = Temperature.objects.all()
+    serializer_class = TemperatureSerializer
+
+
+class BulbColorViewSet(ReadOnlyModelViewSet, YellightViewMixin):
     queryset = YeelightBulb.objects.all()
     serializer_class = NameSerializer
     lookup_field = "name"
 
-    def retrieve(request: Request, *args, **kwargs):
-        try:
-            color = list(request.request.query_params.keys())[0]
-        except IndexError:
-            raise NotFound(detail="Color not found")
-        return Response(f"{color}")
+    def retrieve(self, request: Request, *args, **kwargs):
+        color = self.get_query_key(request)
+        color_data = Color.objects.all().filter(name=color).first()
+        return Response(f"{color_data}")
 
 
-class TemperatureViewSet(ReadOnlyModelViewSet):
+class BulbTemperatureViewSet(ReadOnlyModelViewSet, YellightViewMixin):
     queryset = YeelightBulb.objects.all()
     serializer_class = NameSerializer
     lookup_field = "name"
 
-    def retrieve(request: Request, *args, **kwargs):
-        try:
-            temperature = list(request.request.query_params.keys())[0]
-        except IndexError:
-            raise NotFound(detail="Temperature not found")
-        return Response(f"{temperature}")
+    def retrieve(self, request: Request, *args, **kwargs):
+        temperature = self.get_query_key(request)
+        temperature_data = (
+            Temperature.objects.all().filter(name=temperature).first()
+        )
+        return Response(f"{temperature_data}")
