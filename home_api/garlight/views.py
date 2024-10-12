@@ -15,8 +15,8 @@ from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
-from garlight.mixins import YellightViewMixin
 from garlight.bulbs import SmartBulb
+from rest_framework.exceptions import NotFound
 
 
 class BulbViewSet(ModelViewSet):
@@ -78,11 +78,20 @@ class TimerViewSet(ModelViewSet):
     serializer_class = TimerSerializer
 
 
-class BulbColorViewSet(ReadOnlyModelViewSet, YellightViewMixin):
+class YellightViewSet(ReadOnlyModelViewSet):
     queryset = YeelightBulb.objects.all()
     serializer_class = NameSerializer
     lookup_field = "name"
 
+    def get_query_key(self, request: Request) -> str:
+        try:
+            keys = list(request.query_params.keys())[0]
+        except IndexError:
+            raise NotFound(detail="Query keys not found")
+        return keys
+
+
+class BulbColorViewSet(YellightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         color_name = self.get_query_key(request)
@@ -92,11 +101,7 @@ class BulbColorViewSet(ReadOnlyModelViewSet, YellightViewMixin):
         return Response(result)
 
 
-class BulbTemperatureViewSet(ReadOnlyModelViewSet, YellightViewMixin):
-    queryset = YeelightBulb.objects.all()
-    serializer_class = NameSerializer
-    lookup_field = "name"
-
+class BulbTemperatureViewSet(YellightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         temperature_name = self.get_query_key(request)
@@ -108,11 +113,7 @@ class BulbTemperatureViewSet(ReadOnlyModelViewSet, YellightViewMixin):
         return Response(result)
 
 
-class BulbTimerViewSet(ReadOnlyModelViewSet, YellightViewMixin):
-    queryset = YeelightBulb.objects.all()
-    serializer_class = NameSerializer
-    lookup_field = "name"
-
+class BulbTimerViewSet(YellightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         time = self.get_query_key(request)
