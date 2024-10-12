@@ -1,10 +1,6 @@
-from garlight.serializers import (
-    ColorSerializer,
-    TemperatureSerializer,
-    TimerSerializer,
-)
-from rest_framework.viewsets import ModelViewSet
 from garlight.models import Color, Temperature, Timer
+from garlight.serializers import ColorSerializer, TemperatureSerializer, TimerSerializer
+from rest_framework.viewsets import ModelViewSet
 
 
 class ColorViewSet(ModelViewSet):

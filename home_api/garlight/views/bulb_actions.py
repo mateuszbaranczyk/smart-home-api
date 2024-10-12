@@ -1,18 +1,15 @@
 from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from rest_framework.decorators import action
-from rest_framework.exceptions import MethodNotAllowed, NotFound
-from rest_framework.request import Request
-from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from rest_framework.mixins import RetrieveModelMixin
 from garlight.bulbs import SmartBulb, discover_bulbs
 from garlight.models import Color, Temperature, Timer, YeelightBulb
-from garlight.serializers import (
-    BulbSerializer,
-    NameSerializer,
-)
+from garlight.serializers import BulbSerializer, NameSerializer
+from rest_framework.decorators import action
+from rest_framework.exceptions import MethodNotAllowed, NotFound
+from rest_framework.mixins import RetrieveModelMixin
+from rest_framework.request import Request
+from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 
 class BulbViewSet(ModelViewSet):
@@ -69,7 +66,7 @@ class BulbViewSet(ModelViewSet):
         existing = YeelightBulb.objects.all().values_list("bulb_id", flat=True)
         bulbs = self._create_db_obj(discovered, existing)
         YeelightBulb.objects.bulk_create(bulbs)
-        return HttpResponseRedirect(reverse("bulbs-list"))
+        return HttpResponseRedirect(reverse("bulb-list"))
 
     def _create_db_obj(
         self, discovered: dict, existing: QuerySet
