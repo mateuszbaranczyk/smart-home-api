@@ -1,4 +1,4 @@
-from garlight.models import YeelightBulb, Temperature, Color
+from garlight.models import Timer, YeelightBulb, Temperature, Color
 from rest_framework.serializers import ModelSerializer
 
 
@@ -24,4 +24,10 @@ class TemperatureSerializer(ModelSerializer):
 class ColorSerializer(ModelSerializer):
     class Meta:
         model = Color
+        fields = "__all__"
+
+
+class TimerSerializer(ModelSerializer):
+    class Meta:
+        model = Timer
         fields = "__all__"
