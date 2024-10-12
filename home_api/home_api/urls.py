@@ -4,6 +4,7 @@ from garlight.views import (
     BulbViewSet,
     BulbColorViewSet,
     BulbPowerViewSet,
+    BulbTemperatureViewSet,
     ColorViewSet,
     TemperatureViewSet,
 )
@@ -13,7 +14,7 @@ router = DefaultRouter()
 router.register(r"bulbs", BulbViewSet, basename="bulbs")
 router.register(r"on-off", BulbPowerViewSet, basename="bulb-power")
 router.register(r"color", BulbColorViewSet, basename="bulb-color")
-router.register(r"temperature", BulbColorViewSet, basename="bulb-temperature")
+router.register(r"temperature", BulbTemperatureViewSet, basename="bulb-temperature")
 
 router.register(r"colors", ColorViewSet, basename="colors")
 router.register(r"temperatures", TemperatureViewSet, basename="temperatures")
