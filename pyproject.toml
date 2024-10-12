@@ -10,12 +10,29 @@ python = "^3.12"
 djangorestframework = "^3.15.2"
 yeelight = "^0.7.14"
 drf-spectacular = "^0.27.2"
+flake8-pyproject = "^1.2.3"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.1.1"
 black = "^24.10.0"
 isort = "^5.13.2"
 mypy = "^1.11.2"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.flake8]
+ignore = ['E501']
+exclude = ['./home_api/garlight/views/__init__.py']
+count = true
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+exclude = ["garlight/migrations/.*"]
 
 [build-system]
 requires = ["poetry-core"]
