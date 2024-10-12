@@ -12,8 +12,8 @@ class YeelightBulb(Model):
 
 class Temperature(Model):
     name = CharField(max_length=16, unique=True)
-    kelvins = IntegerField(max_length=4)
-    brightness = IntegerField(max_length=3)
+    kelvins = IntegerField()
+    brightness = IntegerField()
 
     def __str__(self):
         return f"Temperature: {self.kelvins}K - {self.brightness}%"
@@ -28,10 +28,10 @@ class Temperature(Model):
 
 class Color(Model):
     name = CharField(max_length=16, unique=True)
-    r = IntegerField(max_length=3)
-    g = IntegerField(max_length=3)
-    b = IntegerField(max_length=3)
-    brightness = IntegerField(max_length=3)
+    r = IntegerField()
+    g = IntegerField()
+    b = IntegerField()
+    brightness = IntegerField()
 
     def __str__(self):
         return f"RGB: {self.r}, {self.g}, {self.b} - {self.brightness}%"
@@ -46,3 +46,6 @@ class Color(Model):
         if self.brightness not in range(0, 101):
             raise ValueError("Brightness out of range!")
         return super().clean()
+
+class Timer(Model):
+    minutes = IntegerField(unique=True)
