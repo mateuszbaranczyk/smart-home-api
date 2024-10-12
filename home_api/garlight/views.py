@@ -1,4 +1,3 @@
-from django.db.models import Model
 from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -6,8 +5,8 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import MethodNotAllowed, NotFound
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
-
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.mixins import RetrieveModelMixin
 from garlight.bulbs import SmartBulb, discover_bulbs
 from garlight.models import Color, Temperature, Timer, YeelightBulb
 from garlight.serializers import (
@@ -75,7 +74,7 @@ class BulbViewSet(ModelViewSet):
         YeelightBulb.objects.bulk_create(bulbs)
         return HttpResponseRedirect(reverse("bulbs-list"))
 
-    def _create_db_obj(self, discovered: dict, existing: QuerySet) -> list:
+    def _create_db_obj(self, discovered: dict, existing: QuerySet) -> list[YeelightBulb]:
         bulbs = [
             YeelightBulb(
                 bulb_id=device["capabilities"]["id"],
@@ -86,18 +85,6 @@ class BulbViewSet(ModelViewSet):
             if device["capabilities"]["id"] not in existing
         ]
         return bulbs
-
-
-class BulbPowerViewSet(ReadOnlyModelViewSet):
-    queryset = YeelightBulb.objects.all()
-    serializer_class = NameSerializer
-    lookup_field = "name"
-
-    def retrieve(self, request: Request, *args, **kwargs):
-        instance = self.get_object()
-        bulb = SmartBulb(instance)
-        result = bulb.on_off()
-        return Response(result)
 
 
 class ColorViewSet(ModelViewSet):
@@ -115,7 +102,7 @@ class TimerViewSet(ModelViewSet):
     serializer_class = TimerSerializer
 
 
-class YellightViewSet(ReadOnlyModelViewSet):
+class YellightViewSet(RetrieveModelMixin, GenericViewSet):
     queryset = YeelightBulb.objects.all()
     serializer_class = NameSerializer
     lookup_field = "name"
@@ -126,6 +113,14 @@ class YellightViewSet(ReadOnlyModelViewSet):
         except IndexError:
             raise NotFound(detail="Query keys not found")
         return keys
+
+
+class BulbPowerViewSet(YellightViewSet):
+    def retrieve(self, request: Request, *args, **kwargs):
+        instance = self.get_object()
+        bulb = SmartBulb(instance)
+        result = bulb.on_off()
+        return Response(result)
 
 
 class BulbColorViewSet(YellightViewSet):
