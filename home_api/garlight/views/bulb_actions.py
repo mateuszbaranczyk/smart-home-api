@@ -11,10 +11,7 @@ from garlight.bulbs import SmartBulb, discover_bulbs
 from garlight.models import Color, Temperature, Timer, YeelightBulb
 from garlight.serializers import (
     BulbSerializer,
-    ColorSerializer,
     NameSerializer,
-    TemperatureSerializer,
-    TimerSerializer,
 )
 
 
@@ -74,7 +71,9 @@ class BulbViewSet(ModelViewSet):
         YeelightBulb.objects.bulk_create(bulbs)
         return HttpResponseRedirect(reverse("bulbs-list"))
 
-    def _create_db_obj(self, discovered: dict, existing: QuerySet) -> list[YeelightBulb]:
+    def _create_db_obj(
+        self, discovered: dict, existing: QuerySet
+    ) -> list[YeelightBulb]:
         bulbs = [
             YeelightBulb(
                 bulb_id=device["capabilities"]["id"],
@@ -85,21 +84,6 @@ class BulbViewSet(ModelViewSet):
             if device["capabilities"]["id"] not in existing
         ]
         return bulbs
-
-
-class ColorViewSet(ModelViewSet):
-    queryset = Color.objects.all()
-    serializer_class = ColorSerializer
-
-
-class TemperatureViewSet(ModelViewSet):
-    queryset = Temperature.objects.all()
-    serializer_class = TemperatureSerializer
-
-
-class TimerViewSet(ModelViewSet):
-    queryset = Timer.objects.all()
-    serializer_class = TimerSerializer
 
 
 class YellightViewSet(RetrieveModelMixin, GenericViewSet):
@@ -137,9 +121,7 @@ class BulbTemperatureViewSet(YellightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         temperature_name = self.get_query_key(request)
-        temperature = (
-            Temperature.objects.all().filter(name=temperature_name).first()
-        )
+        temperature = Temperature.objects.all().filter(name=temperature_name).first()
         bulb = SmartBulb(instance)
         result = bulb.set_temperature(temperature)
         return Response(result)

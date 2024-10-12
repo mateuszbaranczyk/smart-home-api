@@ -2,22 +2,19 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from garlight.views import (BulbColorViewSet, BulbPowerViewSet,
-                            BulbTemperatureViewSet, BulbTimerViewSet,
-                            BulbViewSet, ColorViewSet, TemperatureViewSet,
-                            TimerViewSet)
+from garlight import views
 
 router = DefaultRouter()
 
-router.register(r"bulbs", BulbViewSet, basename="bulb")
-router.register(r"on-off", BulbPowerViewSet, basename="bulb-power")
-router.register(r"color", BulbColorViewSet, basename="bulb-color")
-router.register(r"temperature", BulbTemperatureViewSet, basename="bulb-temperature")
-router.register(r"timer", BulbTimerViewSet, basename="bulb-timer")
+router.register(r"bulbs", views.BulbViewSet, basename="bulb")
+router.register(r"on-off", views.BulbPowerViewSet, basename="bulb-power")
+router.register(r"color", views.BulbColorViewSet, basename="bulb-color")
+router.register(r"temperature", views.BulbTemperatureViewSet, basename="bulb-temp")
+router.register(r"timer", views.BulbTimerViewSet, basename="bulb-timer")
 
-router.register(r"colors", ColorViewSet, basename="colors")
-router.register(r"temperatures", TemperatureViewSet, basename="temperatures")
-router.register(r"timers", TimerViewSet, basename="timers")
+router.register(r"colors", views.ColorViewSet, basename="colors")
+router.register(r"temperatures", views.TemperatureViewSet, basename="temperatures")
+router.register(r"timers", views.TimerViewSet, basename="timers")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
