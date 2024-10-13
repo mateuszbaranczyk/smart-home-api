@@ -1,5 +1,5 @@
 from django.db.models.query import QuerySet
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from garlight.bulbs import SmartBulb, discover_bulbs
 from garlight.models import Color, Temperature, Timer, YeelightBulb
@@ -8,7 +8,6 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import MethodNotAllowed, NotFound
 from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.request import Request
-from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 
@@ -83,7 +82,7 @@ class BulbViewSet(ModelViewSet):
         return bulbs
 
 
-class YellightViewSet(RetrieveModelMixin, GenericViewSet):
+class YeelightViewSet(RetrieveModelMixin, GenericViewSet):
     queryset = YeelightBulb.objects.all()
     serializer_class = NameSerializer
     lookup_field = "name"
@@ -96,39 +95,39 @@ class YellightViewSet(RetrieveModelMixin, GenericViewSet):
         return keys
 
 
-class BulbPowerViewSet(YellightViewSet):
+class BulbPowerViewSet(YeelightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         bulb = SmartBulb(instance)
         result = bulb.on_off()
-        return Response(result)
+        return HttpResponse(result, content_type="text/plain")
 
 
-class BulbColorViewSet(YellightViewSet):
+class BulbColorViewSet(YeelightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         color_name = self.get_query_key(request)
         color = Color.objects.all().filter(name=color_name).first()
         bulb = SmartBulb(instance)
         result = bulb.set_color(color)
-        return Response(result)
+        return HttpResponse(result, content_type="text/plain")
 
 
-class BulbTemperatureViewSet(YellightViewSet):
+class BulbTemperatureViewSet(YeelightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         temperature_name = self.get_query_key(request)
         temperature = Temperature.objects.all().filter(name=temperature_name).first()
         bulb = SmartBulb(instance)
         result = bulb.set_temperature(temperature)
-        return Response(result)
+        return HttpResponse(result, content_type="text/plain")
 
 
-class BulbTimerViewSet(YellightViewSet):
+class BulbTimerViewSet(YeelightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         time = self.get_query_key(request)
         minutes = Timer.objects.all().filter(minutes=time).first().minutes
         bulb = SmartBulb(instance)
         result = bulb.set_timier(minutes)
-        return Response(result)
+        return HttpResponse(result, content_type="text/plain")
