@@ -15,6 +15,7 @@ router.register(r"endpoint", views.EndpointViewSet, basename="bulb-endpoint")
 router.register(r"colors", views.ColorViewSet, basename="colors")
 router.register(r"temperatures", views.TemperatureViewSet, basename="temperatures")
 router.register(r"timers", views.TimerViewSet, basename="timers")
+router.register(r"endpoints", views.GarminEndpointsViewSet, basename="garmin-endpoints")
 
 urlpatterns = [
     path("admin/", admin.site.urls),

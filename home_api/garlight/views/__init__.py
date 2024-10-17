@@ -1,8 +1,8 @@
 from .actions_management import (
     ColorViewSet,
+    EndpointViewSet,
     TemperatureViewSet,
     TimerViewSet,
-    EndpointViewSet,
 )
 from .bulb_actions import (
     BulbColorViewSet,
@@ -10,4 +10,5 @@ from .bulb_actions import (
     BulbTemperatureViewSet,
     BulbTimerViewSet,
     BulbViewSet,
+    GarminEndpointsViewSet,
 )

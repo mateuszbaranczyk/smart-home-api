@@ -2,11 +2,11 @@ from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from garlight.bulbs import SmartBulb, discover_bulbs
-from garlight.models import Color, Temperature, Timer, YeelightBulb
+from garlight.models import Color, Endpoint, Temperature, Timer, YeelightBulb
 from garlight.serializers import BulbSerializer, NameSerializer
 from rest_framework.decorators import action
 from rest_framework.exceptions import MethodNotAllowed, NotFound
-from rest_framework.mixins import RetrieveModelMixin
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.request import Request
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
@@ -93,6 +93,12 @@ class YeelightViewSet(RetrieveModelMixin, GenericViewSet):
         except IndexError:
             raise NotFound(detail="Query keys not found")
         return keys
+
+
+class GarminEndpointsViewSet(ListModelMixin, GenericViewSet):
+    def list(self, request: Request, *args, **kwargs):
+        endpoints = [endpoint.path for endpoint in Endpoint.objects.all()]
+        return HttpResponse(str(endpoints), content_type="text/plain")
 
 
 class BulbPowerViewSet(YeelightViewSet):
