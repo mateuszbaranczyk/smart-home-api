@@ -1,10 +1,4 @@
-from django.db.models import (
-    CharField,
-    IntegerField,
-    Model,
-    ForeignKey,
-    CASCADE,
-)
+from django.db.models import CASCADE, CharField, ForeignKey, IntegerField, Model
 
 
 class YeelightBulb(Model):
@@ -13,7 +7,7 @@ class YeelightBulb(Model):
     name = CharField(max_length=64, unique=True)
 
     def __str__(self):
-        return f"{self.name}-{self.bulb_id}, ip:{self.ip}"
+        return f"{self.name} - {self.bulb_id}, ip:{self.ip}"
 
 
 class Temperature(Model):
