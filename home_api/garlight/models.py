@@ -47,7 +47,8 @@ def presets() -> dict[str, str]:
         (str(color_preset), "Timer - " + str(color_preset))
         for color_preset in Timer.objects.all().values_list("minutes", flat=True)
     ]
-    presets = color + temperature + timer
+    power = [("power", "Power")]
+    presets = power + color + temperature + timer
 
     return {preset[0]: preset[1] for preset in presets}
 

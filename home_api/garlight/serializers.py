@@ -51,15 +51,9 @@ class TimerSerializer(ModelSerializer):
 
 
 class EndpointSerializer(ModelSerializer):
-    name = CharField(max_length=32)
-    action = CharField(max_length=16)
-    device = CharField(max_length=16)
-    preset = CharField(max_length=16)
-
     def validate(self, data):
         if data["action"] == "on-off":
-            if data["preset"] != "":
-                raise ValueError("Power action does not require a preset")
+            data["preset"] = ""
         if data["action"] == "color":
             if data["preset"] == "":
                 raise ValueError("Color action requires a preset")
@@ -69,6 +63,7 @@ class EndpointSerializer(ModelSerializer):
         if data["action"] == "timer":
             if data["preset"] == "":
                 raise ValueError("Timer action requires a preset")
+        return data
 
     class Meta:
         model = Endpoint
