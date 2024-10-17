@@ -1,4 +1,10 @@
-from django.db.models import CharField, IntegerField, Model
+from django.db.models import (
+    CharField,
+    IntegerField,
+    Model,
+    ForeignKey,
+    CASCADE,
+)
 
 
 class YeelightBulb(Model):
@@ -18,13 +24,6 @@ class Temperature(Model):
     def __str__(self):
         return f"Temperature: {self.kelvins}K - {self.brightness}%"
 
-    def clean(self):
-        if self.kelvins not in range(1700, 6501):
-            raise ValueError("Temperature out of range!")
-        if self.brightness not in range(0, 101):
-            raise ValueError("Brightness out of range!")
-        return super().clean()
-
 
 class Color(Model):
     name = CharField(max_length=16, unique=True)
@@ -36,17 +35,46 @@ class Color(Model):
     def __str__(self):
         return f"RGB: {self.r}, {self.g}, {self.b} - {self.brightness}%"
 
-    def clean(self):
-        if self.r not in range(0, 256):
-            raise ValueError("Red out of range!")
-        if self.g not in range(0, 256):
-            raise ValueError("Green out of range!")
-        if self.b not in range(0, 256):
-            raise ValueError("Blue out of range!")
-        if self.brightness not in range(0, 101):
-            raise ValueError("Brightness out of range!")
-        return super().clean()
-
 
 class Timer(Model):
     minutes = IntegerField(unique=True)
+
+
+def presets() -> dict[str, str]:
+    color = [
+        (color_preset, "Color - " + color_preset)
+        for color_preset in Color.objects.all().values_list("name", flat=True)
+    ]
+    temperature = [
+        (color_preset, "Temperature - " + color_preset)
+        for color_preset in Temperature.objects.all().values_list(
+            "name", flat=True
+        )
+    ]
+    timer = [
+        (str(color_preset), "Timer - " + str(color_preset))
+        for color_preset in Timer.objects.all().values_list(
+            "minutes", flat=True
+        )
+    ]
+    presets = color + temperature + timer
+
+    return {preset[0]: preset[1] for preset in presets}
+
+
+class Endpoint(Model):
+    ACTIONS = [
+        ("on-off", "Power"),
+        ("color", "Color"),
+        ("timer", "Timer"),
+        ("temperature", "Temperature"),
+    ]
+
+    name = CharField(max_length=32, unique=True)
+    action = CharField(max_length=16, choices=ACTIONS)
+    device = ForeignKey(YeelightBulb, on_delete=CASCADE)
+    preset = CharField(max_length=16, choices=presets)
+
+    @property
+    def path(self):
+        return f"/{self.action}/{self.device.name}/?{self.preset}"
