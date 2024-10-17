@@ -18,42 +18,8 @@ class BulbViewSet(ModelViewSet):
 
     def get_serializer_context(self) -> dict:
         context = super().get_serializer_context()
-        context["urls"] = self._get_action_urls()
+        context["urls"] = Endpoint.objects.all()
         return context
-
-    def _get_action_urls(self) -> dict:
-        actions = {
-            "sypialnia": self._generate_urls("sypialnia"),
-            "salon": self._generate_urls("salon"),
-        }
-        return actions
-
-    def _generate_urls(
-        self,
-        device,
-    ) -> list:
-        host = "localhost:8000"
-        endpoints = ["timer", "temperature", "color"]
-        color_presets = ["red", "purple"]
-        temperature_presets = ["cold", "warm"]
-        timer_presets = ["15", "30"]
-        on_off = f"{host}/on-off/{device}/"
-        urls = []
-        urls.append(on_off)
-        for endpoint in endpoints:
-            if endpoint == "color":
-                for color in color_presets:
-                    url = f"{host}/{endpoint}/{device}?{color}"
-                    urls.append(url)
-            elif endpoint == "temperature":
-                for temperature in temperature_presets:
-                    url = f"{host}/{endpoint}/{device}?{temperature}"
-                    urls.append(url)
-            elif endpoint == "timer":
-                for timer in timer_presets:
-                    url = f"{host}/{endpoint}/{device}?{timer}"
-                    urls.append(url)
-        return urls
 
     def create(self, request: Request, *args, **kwargs):
         msg = "Please use 'bulbs/discover/' endpoint for discover and create new device"

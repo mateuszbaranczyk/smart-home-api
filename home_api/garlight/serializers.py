@@ -12,7 +12,9 @@ class BulbSerializer(ModelSerializer):
         representation = super().to_representation(instance)
         urls = self.context.get("urls", None)
         if urls:
-            representation["urls"] = urls[instance.name]
+            representation["urls"] = [
+                action.path for action in urls.filter(device_id=instance.id)
+            ]
         return representation
 
 
