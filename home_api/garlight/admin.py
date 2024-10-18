@@ -1,5 +1,5 @@
 from django.contrib import admin
-from garlight.models import Color, Temperature, YeelightBulb, Timer, Endpoint
+from garlight.models import Color, Endpoint, Temperature, Timer, YeelightBulb
 
 admin.site.register(YeelightBulb)
 admin.site.register(Color)
