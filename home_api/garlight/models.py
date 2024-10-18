@@ -58,8 +58,12 @@ def presets() -> dict[str, str]:
         (str(color_preset), "Timer - " + str(color_preset))
         for color_preset in Timer.objects.all().values_list("minutes", flat=True)
     ]
+    brightness = [
+        (brightness_preset, "Brightness - " + brightness_preset)
+        for brightness_preset in Brightness.objects.all().values_list("name", flat=True)
+    ]
     power = [("power", "Power")]
-    presets = power + color + temperature + timer
+    presets = power + color + temperature + timer + brightness
 
     return {preset[0]: preset[1] for preset in presets}
 
@@ -70,6 +74,7 @@ class Endpoint(Model):
         ("color", "Color"),
         ("timer", "Timer"),
         ("temperature", "Temperature"),
+        ("Brightness", "Brightness"),
     ]
 
     name = CharField(max_length=32, unique=True)
