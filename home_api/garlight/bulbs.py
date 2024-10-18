@@ -66,8 +66,3 @@ class SmartBulb:
         if status == "ok":
             return "Ok"
         return "Failed"
-
-
-def discover_and_assign() -> None:
-    devices = discover_bulbs()
-    return devices
