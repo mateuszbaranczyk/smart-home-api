@@ -33,6 +33,9 @@ class Color(Model):
 class Timer(Model):
     minutes = IntegerField(unique=True)
 
+    def __str__(self):
+        return f"Timer {self.minutes}"
+
 
 def presets() -> dict[str, str]:
     color = [
@@ -68,4 +71,7 @@ class Endpoint(Model):
 
     @property
     def path(self):
+        return f"/{self.action}/{self.device.name}/?{self.preset}"
+
+    def __str__(self):
         return f"/{self.action}/{self.device.name}/?{self.preset}"
