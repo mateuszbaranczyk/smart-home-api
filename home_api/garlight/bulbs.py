@@ -8,15 +8,15 @@ class BulbException(Exception):
 
 class SmartBulb:
     def __init__(self, db_model: YeelightBulb) -> None:
-        self.model = db_model
-        self.bulb = Bulb(ip=self.model.ip)
+        self.db_model = db_model
+        self.bulb = Bulb(ip=self.db_model.ip)
 
     def __repr__(self) -> str:
-        return f"{self.model.name} - {self.check_state()}"
+        return f"{self.db_model.name} - {self.check_state()}"
 
     @property
     def state(self):
-        return f"{self.model.name} - {self.check_state()}"
+        return f"{self.db_model.name} - {self.check_state()}"
 
     def on_off(self) -> str:
         power = self.check_state()
