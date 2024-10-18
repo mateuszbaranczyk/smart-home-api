@@ -1,7 +1,8 @@
+from typing import List
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from garlight.bulbs import SmartBulb, discover_bulbs
+from garlight.bulbs import BulbInfo, SmartBulb
 from garlight.models import Color, Endpoint, Temperature, Timer, YeelightBulb
 from garlight.serializers import BulbSerializer, NameSerializer
 from rest_framework.decorators import action
@@ -9,6 +10,7 @@ from rest_framework.exceptions import MethodNotAllowed, NotFound
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.request import Request
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
+from yeelight import discover_bulbs
 
 
 class BulbViewSet(ModelViewSet):
@@ -27,23 +29,29 @@ class BulbViewSet(ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def discover(self, request: Request):
-        discovered = discover_bulbs()
+        discovered = self.fetch_discovered_bulbs()
         existing = YeelightBulb.objects.all().values_list("bulb_id", flat=True)
-        bulbs = self._create_db_obj(discovered, existing)
+        bulbs = self.create_db_obj(discovered, existing)
         YeelightBulb.objects.bulk_create(bulbs)
         return HttpResponseRedirect(reverse("bulb-list"))
 
-    def _create_db_obj(
-        self, discovered: dict, existing: QuerySet
+    def fetch_discovered_bulbs(self) -> list[BulbInfo]:
+        discovered = discover_bulbs()
+        if discovered == []:
+            raise NotFound(detail="Devices not found")
+        return [[BulbInfo(**device) for device in discovered]]
+
+    def create_db_obj(
+        self, discovered: list[BulbInfo], existing: QuerySet
     ) -> list[YeelightBulb]:
         bulbs = [
             YeelightBulb(
-                bulb_id=device["capabilities"]["id"],
-                ip=device["ip"],
-                name=device["capabilities"]["id"],
+                bulb_id=device.properties.id,
+                ip=device.ip,
+                name=device.properties.id,
             )
             for device in discovered
-            if device["capabilities"]["id"] not in existing
+            if device.properties.id not in existing
         ]
         return bulbs
 
