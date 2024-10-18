@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from garlight.models import Color, Temperature, YeelightBulb
 from yeelight import Bulb, CronType, SceneClass
 
@@ -66,3 +67,30 @@ class SmartBulb:
         if status == "ok":
             return "Ok"
         return "Failed"
+
+
+@dataclass(frozen=True)
+class Properties:
+    id: str
+    model: str
+    fw_ver: str
+    support: str
+    power: str
+    bright: str
+    color_mode: str
+    ct: str
+    rgb: str
+    hue: str
+    sat: str
+    name: str
+
+
+@dataclass(frozen=True)
+class BulbInfo:
+    ip: str
+    port: int
+    capabilities: dict
+
+    @property
+    def properties(self) -> Properties:
+        return Properties(**self.capabilities)
