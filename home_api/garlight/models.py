@@ -42,8 +42,9 @@ class Brightness(Model):
     brightness = IntegerField()
 
     def __str__(self):
-        return f"Brightness - {self.brightness}%
-        "
+        return f"Brightness - {self.brightness}%"
+
+
 def presets() -> dict[str, str]:
     color = [
         (color_preset, "Color - " + color_preset)
