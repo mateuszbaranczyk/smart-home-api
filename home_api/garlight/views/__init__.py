@@ -3,6 +3,7 @@ from .actions_management import (
     EndpointViewSet,
     TemperatureViewSet,
     TimerViewSet,
+    BrightnessViewSet,
 )
 from .bulb_actions import (
     BulbColorViewSet,

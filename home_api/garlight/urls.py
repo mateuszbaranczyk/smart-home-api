@@ -10,6 +10,7 @@ app_router.register(r"on-off", views.BulbPowerViewSet, basename="bulb-power")
 app_router.register(r"color", views.BulbColorViewSet, basename="bulb-color")
 app_router.register(r"temperature", views.BulbTemperatureViewSet, basename="bulb-temp")
 app_router.register(r"timer", views.BulbTimerViewSet, basename="bulb-timer")
+app_router.register(r"brightness", views.BrightnessViewSet, basename="bulb-brightness")
 app_router.register(r"endpoint", views.EndpointViewSet, basename="bulb-endpoint")
 
 device_router.register(r"colors", views.ColorViewSet, basename="colors")

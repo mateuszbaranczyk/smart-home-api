@@ -1,5 +1,6 @@
-from garlight.models import Color, Endpoint, Temperature, Timer
+from garlight.models import Brightness, Color, Endpoint, Temperature, Timer
 from garlight.serializers import (
+    BrightnessSerializer,
     ColorSerializer,
     EndpointSerializer,
     TemperatureSerializer,
@@ -21,6 +22,11 @@ class TemperatureViewSet(ModelViewSet):
 class TimerViewSet(ModelViewSet):
     queryset = Timer.objects.all()
     serializer_class = TimerSerializer
+
+
+class BrightnessViewSet(ModelViewSet):
+    queryset = Brightness.objects.all()
+    serializer_class = BrightnessSerializer
 
 
 class EndpointViewSet(ModelViewSet):
