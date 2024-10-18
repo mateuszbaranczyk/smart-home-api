@@ -1,5 +1,7 @@
-from garlight.models import Color, Endpoint, Temperature, Timer, YeelightBulb
-from rest_framework.serializers import IntegerField, ModelSerializer
+from collections.abc import KeysView
+
+from garlight.models import Color, Endpoint, Temperature, Timer, YeelightBulb, presets
+from rest_framework.serializers import IntegerField, ModelSerializer, ValidationError
 
 
 class BulbSerializer(ModelSerializer):
@@ -52,18 +54,23 @@ class TimerSerializer(ModelSerializer):
 
 class EndpointSerializer(ModelSerializer):
     def validate(self, data):
+        all_presets = presets()
+        action = data["action"]
+        action_presets = self._filter_presets(all_presets, action)
+
+        if data["preset"] not in action_presets:
+            raise ValidationError(f"Use preset for {action.capitalize()}")
+
         if data["action"] == "on-off":
             data["preset"] = ""
-        if data["action"] == "color":
-            if data["preset"] == "":
-                raise ValueError("Color action requires a preset")
-        if data["action"] == "temperature":
-            if data["preset"] == "":
-                raise ValueError("Temperature action requires a preset")
-        if data["action"] == "timer":
-            if data["preset"] == "":
-                raise ValueError("Timer action requires a preset")
+
         return data
+
+    def _filter_presets(self, presets: dict, action: str) -> KeysView:
+        filtered = {
+            key: value for key, value in presets.items() if action.capitalize() in value
+        }
+        return filtered.keys()
 
     class Meta:
         model = Endpoint
