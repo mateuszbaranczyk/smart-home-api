@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 app_router = DefaultRouter()  # management
 device_router = DefaultRouter()  # api for sending requests to devices
 
+# fmt: off
 app_router.register(r"bulbs", views.BulbViewSet, basename="bulb")
 app_router.register(r"on-off", views.BulbPowerViewSet, basename="bulb-power")
 app_router.register(r"color", views.BulbColorViewSet, basename="bulb-color")
@@ -15,6 +16,6 @@ device_router.register(r"colors", views.ColorViewSet, basename="colors")
 device_router.register(r"temperatures", views.TemperatureViewSet, basename="temperatures")
 device_router.register(r"timers", views.TimerViewSet, basename="timers")
 device_router.register(r"endpoints", views.GarminEndpointsViewSet, basename="endpoints")
-
+# fmt: on
 
 garlight_urls = app_router.urls + device_router.urls
