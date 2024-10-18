@@ -1,5 +1,5 @@
 from garlight.models import Color, Temperature, YeelightBulb
-from yeelight import Bulb, CronType, SceneClass, discover_bulbs
+from yeelight import Bulb, CronType, SceneClass
 
 
 class BulbException(Exception):
