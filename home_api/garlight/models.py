@@ -37,6 +37,13 @@ class Timer(Model):
         return f"Timer {self.minutes}"
 
 
+class Brightness(Model):
+    name = CharField(max_length=16, unique=True)
+    brightness = IntegerField()
+
+    def __str__(self):
+        return f"Brightness - {self.brightness}%
+        "
 def presets() -> dict[str, str]:
     color = [
         (color_preset, "Color - " + color_preset)

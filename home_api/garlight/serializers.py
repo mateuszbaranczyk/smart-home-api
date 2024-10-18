@@ -1,6 +1,14 @@
 from collections.abc import KeysView
 
-from garlight.models import Color, Endpoint, Temperature, Timer, YeelightBulb, presets
+from garlight.models import (
+    Brightness,
+    Color,
+    Endpoint,
+    Temperature,
+    Timer,
+    YeelightBulb,
+    presets,
+)
 from rest_framework.serializers import IntegerField, ModelSerializer, ValidationError
 
 
@@ -49,6 +57,14 @@ class ColorSerializer(ModelSerializer):
 class TimerSerializer(ModelSerializer):
     class Meta:
         model = Timer
+        fields = "__all__"
+
+
+class BrightnessSerializer(ModelSerializer):
+    brightness = IntegerField(max_value=100, min_value=1)
+
+    class Meta:
+        model = Brightness
         fields = "__all__"
 
 
