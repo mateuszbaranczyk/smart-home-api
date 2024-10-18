@@ -87,7 +87,7 @@ class BulbColorViewSet(YeelightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         color_name = self.get_query_key(request)
-        color = Color.objects.all().filter(name=color_name).first()
+        color = Color.objects.filter(name=color_name).first()
         bulb = SmartBulb(instance)
         result = bulb.set_color(color)
         return HttpResponse(result, content_type="text/plain")
@@ -97,7 +97,7 @@ class BulbTemperatureViewSet(YeelightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         temperature_name = self.get_query_key(request)
-        temperature = Temperature.objects.all().filter(name=temperature_name).first()
+        temperature = Temperature.objects.filter(name=temperature_name).first()
         bulb = SmartBulb(instance)
         result = bulb.set_temperature(temperature)
         return HttpResponse(result, content_type="text/plain")
@@ -107,7 +107,7 @@ class BulbTimerViewSet(YeelightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
         time = self.get_query_key(request)
-        minutes = Timer.objects.all().filter(minutes=time).first().minutes
+        minutes = Timer.objects.filter(minutes=time).first().minutes
         bulb = SmartBulb(instance)
         result = bulb.set_timier(minutes)
         return HttpResponse(result, content_type="text/plain")
