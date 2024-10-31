@@ -1,5 +1,13 @@
 from django.db.models import CASCADE, CharField, ForeignKey, IntegerField, Model
 
+# register your models here
+ACTIONS = [
+        ("on-off", "Power"),
+        ("color", "Color"),
+        ("timer", "Timer"),
+        ("temperature", "Temperature"),
+        ("brightness", "Brightness"),
+    ]
 
 class YeelightBulb(Model):
     bulb_id = CharField(max_length=32, unique=True)
@@ -69,14 +77,6 @@ def presets() -> dict[str, str]:
 
 
 class Endpoint(Model):
-    ACTIONS = [
-        ("on-off", "Power"),
-        ("color", "Color"),
-        ("timer", "Timer"),
-        ("temperature", "Temperature"),
-        ("brightness", "Brightness"),
-    ]
-
     name = CharField(max_length=32, unique=True)
     action = CharField(max_length=16, choices=ACTIONS)
     device = ForeignKey(YeelightBulb, on_delete=CASCADE)
