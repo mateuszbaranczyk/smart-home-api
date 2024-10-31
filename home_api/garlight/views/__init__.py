@@ -1,9 +1,9 @@
 from .actions_management import (
+    BrightnessViewSet,
     ColorViewSet,
     EndpointViewSet,
     TemperatureViewSet,
     TimerViewSet,
-    BrightnessViewSet,
 )
 from .bulb_actions import (
     BulbColorViewSet,

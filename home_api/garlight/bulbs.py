@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from garlight.models import Color, Temperature, YeelightBulb
 from yeelight import Bulb, CronType, SceneClass
 
@@ -72,6 +73,7 @@ class SmartBulb:
         """Temperature in range 1-100"""
         status = self.bulb.set_brightness(brightness)
         return self._status_return(status)
+
 
 @dataclass(frozen=True)
 class Properties:
