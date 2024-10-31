@@ -16,6 +16,7 @@ app_router.register(r"endpoint", views.EndpointViewSet, basename="bulb-endpoint"
 device_router.register(r"colors", views.ColorViewSet, basename="colors")
 device_router.register(r"temperatures", views.TemperatureViewSet, basename="temperatures")
 device_router.register(r"timers", views.TimerViewSet, basename="timers")
+device_router.register(r"brightnesses", views.BrightnessViewSet, basename="brightnesses")
 device_router.register(r"endpoints", views.GarminEndpointsViewSet, basename="endpoints")
 # fmt: on
 
