@@ -111,3 +111,11 @@ class BulbTimerViewSet(YeelightViewSet):
         bulb = SmartBulb(instance)
         result = bulb.set_timier(minutes)
         return HttpResponse(result, content_type="text/plain")
+
+class BrightnessViewSet(YeelightViewSet):
+    def retrieve(self, request: Request, *args, **kwargs):
+        instance = self.get_object()
+        brightness = self.get_query_key(request)
+        bulb = SmartBulb(instance)
+        result = bulb.set_brightness(brightness)
+        return HttpResponse(result, content_type="text/plain")

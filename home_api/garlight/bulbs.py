@@ -57,7 +57,7 @@ class SmartBulb:
         return self._status_return(status)
 
     def set_temperature(self, temperature: Temperature) -> str:
-        """Temperature in range 1700-6500, brightness 0-100"""
+        """Temperature in range 1700-6500, brightness 1-100"""
         status = self.bulb.set_scene(
             SceneClass.CT, temperature.kelvins, temperature.brightness
         )
@@ -68,6 +68,10 @@ class SmartBulb:
             return "Ok"
         return "Failed"
 
+    def set_brightness(self, brightness: int) -> str:
+        """Temperature in range 1-100"""
+        status = self.bulb.set_brightness(brightness)
+        return self._status_return(status)
 
 @dataclass(frozen=True)
 class Properties:
