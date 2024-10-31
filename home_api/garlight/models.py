@@ -74,7 +74,7 @@ class Endpoint(Model):
         ("color", "Color"),
         ("timer", "Timer"),
         ("temperature", "Temperature"),
-        ("Brightness", "Brightness"),
+        ("brightness", "Brightness"),
     ]
 
     name = CharField(max_length=32, unique=True)
