@@ -1,4 +1,3 @@
-from typing import List
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -71,8 +70,35 @@ class YeelightViewSet(RetrieveModelMixin, GenericViewSet):
 
 class GarminEndpointsViewSet(ListModelMixin, GenericViewSet):
     def list(self, request: Request, *args, **kwargs):
-        endpoints = [endpoint.path for endpoint in Endpoint.objects.all()]
-        return HttpResponse(str(endpoints), content_type="text/plain")
+        all = "- all,Yeelight\n"
+        device_names = Endpoint.objects.values_list(
+            "device__name", flat=True
+        ).distinct()
+        by_device = [
+            self.get_device_actions(device_name) for device_name in device_names
+        ]
+        return HttpResponse(all + "".join(by_device), content_type="text/plain")
+
+    def get_device_actions(self, device_name: str) -> str:
+        endpoints_for_device = Endpoint.objects.filter(device__name=device_name)
+        actions = endpoints_for_device.values_list("action", flat=True).distinct()
+        actions_presets = [
+            self.get_action_presets(action_name=action, device_name=device_name)
+            for action in actions
+        ]
+        device_definitions = f"-- {device_name},{device_name.capitalize()}\n"
+        return device_definitions + "".join(actions_presets)
+
+    def get_action_presets(self, action_name: str, device_name: str) -> str:
+        presets_for_action = Endpoint.objects.filter(
+            action=action_name, device__name=device_name
+        )
+        action_definition = f"--- {action_name},{action_name.capitalize()}\n"
+        presets = [
+            f"---- {preset.name},{preset.name.capitalize()},{preset.path}\n"
+            for preset in presets_for_action
+        ]
+        return action_definition + "".join(presets)
 
 
 class BulbPowerViewSet(YeelightViewSet):
@@ -111,6 +137,7 @@ class BulbTimerViewSet(YeelightViewSet):
         bulb = SmartBulb(instance)
         result = bulb.set_timier(minutes)
         return HttpResponse(result, content_type="text/plain")
+
 
 class BrightnessViewSet(YeelightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
