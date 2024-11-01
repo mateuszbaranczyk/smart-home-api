@@ -69,20 +69,20 @@ class BrightnessSerializer(ModelSerializer):
 
 
 class EndpointSerializer(ModelSerializer):
-    def validate(self, data):
+    def validate(self, attrs):
         all_presets = presets()
-        action = data["action"]
+        action = attrs["action"]
         action_presets = self._filter_presets(all_presets, action)
 
-        if data["action"] == "on-off":
-            data["preset"] = ""
-            return data
+        if attrs["action"] == "on-off":
+            attrs["preset"] = ""
+            return attrs
 
-        if data["preset"] not in action_presets:
+        if attrs["preset"] not in action_presets:
             raise ValidationError(f"Use preset for {action.capitalize()}")
 
-        return data
-    
+        return attrs
+
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         if representation["name"] == "" and representation["preset"] == "":
@@ -90,8 +90,6 @@ class EndpointSerializer(ModelSerializer):
         elif representation["name"] == "":
             representation["name"] = representation["preset"]
         return representation
-
-
 
     def _filter_presets(self, presets: dict, action: str) -> KeysView:
         filtered = {
