@@ -70,7 +70,10 @@ class SmartBulb:
         return "Failed"
 
     def set_brightness(self, brightness: int) -> str:
-        """Temperature in range 1-100"""
+        """Brightness in range 1-100"""
+        state = self.check_state()
+        if state == "off":
+            self.bulb.turn_on()
         status = self.bulb.set_brightness(brightness)
         return self._status_return(status)
 

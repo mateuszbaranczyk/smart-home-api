@@ -2,7 +2,14 @@ from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from garlight.bulbs import BulbInfo, SmartBulb
-from garlight.models import Color, Endpoint, Temperature, Timer, YeelightBulb
+from garlight.models import (
+    Brightness,
+    Color,
+    Endpoint,
+    Temperature,
+    Timer,
+    YeelightBulb,
+)
 from garlight.serializers import BulbSerializer, NameSerializer
 from rest_framework.decorators import action
 from rest_framework.exceptions import MethodNotAllowed, NotFound
@@ -139,10 +146,11 @@ class BulbTimerViewSet(YeelightViewSet):
         return HttpResponse(result, content_type="text/plain")
 
 
-class BrightnessViewSet(YeelightViewSet):
+class BulbBrightnessViewSet(YeelightViewSet):
     def retrieve(self, request: Request, *args, **kwargs):
         instance = self.get_object()
-        brightness = self.get_query_key(request)
+        preset = self.get_query_key(request)
+        brightness = Brightness.objects.filter(name=preset).first().brightness
         bulb = SmartBulb(instance)
         result = bulb.set_brightness(brightness)
         return HttpResponse(result, content_type="text/plain")
