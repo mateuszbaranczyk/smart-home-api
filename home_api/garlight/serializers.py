@@ -74,14 +74,17 @@ class EndpointSerializer(ModelSerializer):
         action = data["action"]
         action_presets = self._filter_presets(all_presets, action)
 
+        if data["action"] == "on-off":
+            data["preset"] = ""
+            return data
+
         if data["preset"] not in action_presets:
             raise ValidationError(f"Use preset for {action.capitalize()}")
 
-        if data["action"] == "on-off":
-            data["preset"] = ""
-
         return data
 
+
+        
     def _filter_presets(self, presets: dict, action: str) -> KeysView:
         filtered = {
             key: value for key, value in presets.items() if action.capitalize() in value
