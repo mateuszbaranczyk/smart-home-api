@@ -38,7 +38,7 @@ class BulbViewSet(ModelViewSet):
         discovered = discover_bulbs()
         if discovered == []:
             raise NotFound(detail="Devices not found")
-        return [[BulbInfo(**device) for device in discovered]]
+        return [BulbInfo(**device) for device in discovered]
 
     def create_db_obj(
         self, discovered: list[BulbInfo], existing: QuerySet
