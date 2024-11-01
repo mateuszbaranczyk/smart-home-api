@@ -1,3 +1,4 @@
+from typing import Any
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -37,7 +38,7 @@ class BulbViewSet(ModelViewSet):
     def discover(self, request: Request):
         discovered = self.fetch_discovered_bulbs()
         existing = YeelightBulb.objects.all().values_list("bulb_id", flat=True)
-        bulbs = self.create_db_obj(discovered, existing)
+        bulbs = self.create_db_obj(discovered, existing) # type: ignore
         YeelightBulb.objects.bulk_create(bulbs)
         return HttpResponseRedirect(reverse("bulb-list"))
 
@@ -48,7 +49,7 @@ class BulbViewSet(ModelViewSet):
         return [BulbInfo(**device) for device in discovered]
 
     def create_db_obj(
-        self, discovered: list[BulbInfo], existing: QuerySet
+        self, discovered: list[BulbInfo], existing: QuerySet[YeelightBulb]
     ) -> list[YeelightBulb]:
         bulbs = [
             YeelightBulb(
@@ -76,6 +77,7 @@ class YeelightViewSet(RetrieveModelMixin, GenericViewSet):
 
 
 class GarminEndpointsViewSet(ListModelMixin, GenericViewSet):
+    """Return a list of all endpoints for the Garmin device."""
     def list(self, request: Request, *args, **kwargs):
         all = "- all,Yeelight\n"
         device_names = Endpoint.objects.values_list(

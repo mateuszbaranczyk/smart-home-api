@@ -28,7 +28,7 @@ class SmartBulb:
         except Exception as err:
             raise BulbException(err)
 
-    def change_state(self, power_status: str) -> str:
+    def change_state(self, power_status: str) -> str | None:
         match power_status:
             case "offline":
                 return "Offline"
@@ -38,6 +38,7 @@ class SmartBulb:
             case "off":
                 self.bulb.turn_on()
                 return "Power on"
+        return None
 
     def check_state(self) -> str:
         """'on' | 'off' | 'offline'"""
@@ -52,19 +53,20 @@ class SmartBulb:
         return "Failed"
 
     def set_color(self, color: Color) -> str:
+        """RGB in range 0-255, brightness 1-100"""
         status = self.bulb.set_scene(
             SceneClass.COLOR, color.r, color.g, color.b, color.brightness
         )
-        return self._status_return(status)
+        return self._status_return(status) # type: ignore
 
     def set_temperature(self, temperature: Temperature) -> str:
         """Temperature in range 1700-6500, brightness 1-100"""
         status = self.bulb.set_scene(
             SceneClass.CT, temperature.kelvins, temperature.brightness
         )
-        return self._status_return(status)
+        return self._status_return(status) # type: ignore
 
-    def _status_return(sefl, status: str) -> str:
+    def _status_return(self, status: str) -> str:
         if status == "ok":
             return "Ok"
         return "Failed"
@@ -75,7 +77,7 @@ class SmartBulb:
         if state == "off":
             self.bulb.turn_on()
         status = self.bulb.set_brightness(brightness)
-        return self._status_return(status)
+        return self._status_return(status) # type: ignore
 
 
 @dataclass(frozen=True)

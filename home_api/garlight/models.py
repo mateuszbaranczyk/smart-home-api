@@ -88,7 +88,7 @@ class Endpoint(Model):
     name = CharField(max_length=16, default="")
     action = CharField(max_length=16, choices=ACTIONS)
     device = ForeignKey(YeelightBulb, on_delete=CASCADE)
-    preset = CharField(max_length=16, choices=presets)
+    preset = CharField(max_length=16, choices=presets) # type: ignore
 
     @property
     def path(self):
