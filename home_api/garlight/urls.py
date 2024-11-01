@@ -16,7 +16,7 @@ device_router.register(r"on-off", views.BulbPowerViewSet, basename="bulb-power")
 device_router.register(r"color", views.BulbColorViewSet, basename="bulb-color")
 device_router.register(r"temperature", views.BulbTemperatureViewSet, basename="bulb-temp")
 device_router.register(r"timer", views.BulbTimerViewSet, basename="bulb-timer")
-device_router.register(r"brightness", views.BrightnessViewSet, basename="brightness")
+device_router.register(r"brightness", views.BulbBrightnessViewSet, basename="brightness")
 device_router.register(r"endpoints", views.GarminEndpointsViewSet, basename="endpoints")
 # fmt: on
 
