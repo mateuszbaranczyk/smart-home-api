@@ -112,9 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_SECONDS = None
-
+SECURE_SSL_REDIRECT = False
+SECURE_HSTS_SECONDS = 0
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
