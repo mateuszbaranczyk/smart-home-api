@@ -82,9 +82,17 @@ class EndpointSerializer(ModelSerializer):
             raise ValidationError(f"Use preset for {action.capitalize()}")
 
         return data
+    
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if representation["name"] == "" and representation["preset"] == "":
+            representation["name"] = "Power"
+        elif representation["name"] == "":
+            representation["name"] = representation["preset"]
+        return representation
 
 
-        
+
     def _filter_presets(self, presets: dict, action: str) -> KeysView:
         filtered = {
             key: value for key, value in presets.items() if action.capitalize() in value
