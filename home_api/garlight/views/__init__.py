@@ -6,6 +6,7 @@ from .actions_management import (
     TimerViewSet,
 )
 from .bulb_actions import (
+    BulbBrightnessViewSet,
     BulbColorViewSet,
     BulbPowerViewSet,
     BulbTemperatureViewSet,
@@ -13,3 +14,18 @@ from .bulb_actions import (
     BulbViewSet,
     GarminEndpointsViewSet,
 )
+
+__all__ = [
+    "BulbBrightnessViewSet",
+    "BrightnessViewSet",
+    "ColorViewSet",
+    "EndpointViewSet",
+    "TemperatureViewSet",
+    "TimerViewSet",
+    "BulbColorViewSet",
+    "BulbPowerViewSet",
+    "BulbTemperatureViewSet",
+    "BulbTimerViewSet",
+    "BulbViewSet",
+    "GarminEndpointsViewSet",
+]
