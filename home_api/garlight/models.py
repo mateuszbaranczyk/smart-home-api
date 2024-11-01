@@ -85,7 +85,6 @@ def presets() -> dict[str, str]:
 
 
 class Endpoint(Model):
-    name = CharField(max_length=32, unique=True)
     action = CharField(max_length=16, choices=ACTIONS)
     device = ForeignKey(YeelightBulb, on_delete=CASCADE)
     preset = CharField(max_length=16, choices=presets)
