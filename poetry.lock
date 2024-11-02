@@ -660,6 +660,20 @@ files = [
 ]
 
 [[package]]
+name = "whitenoise"
+version = "6.8.2"
+description = "Radically simplified static file serving for WSGI applications"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "whitenoise-6.8.2-py3-none-any.whl", hash = "sha256:df12dce147a043d1956d81d288c6f0044147c6d2ab9726e5772ac50fb45d2280"},
+    {file = "whitenoise-6.8.2.tar.gz", hash = "sha256:486bd7267a375fa9650b136daaec156ac572971acc8bf99add90817a530dd1d4"},
+]
+
+[package.extras]
+brotli = ["brotli"]
+
+[[package]]
 name = "yeelight"
 version = "0.7.14"
 description = "A Python library for controlling YeeLight RGB bulbs."
@@ -680,4 +694,4 @@ dev = ["Sphinx", "flake8", "flake8-docstrings", "flake8-import-order", "flake8-t
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "8eb62c0de90cc519734a62f8bb66424a22681410a97bae719131f5c6609b93b2"
+content-hash = "2b9ce0c069c4043e51460425bb209e4c5c7ce42cd13efbc02340945f24f5c528"
