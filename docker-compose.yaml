@@ -1,0 +1,11 @@
+services:
+  backend:
+    container_name: garlight-sh
+    build: .
+    env_file: .env
+    network_mode: host
+    volumes:
+      - smart-home-api:/home_api/db.sqlite3
+
+volumes:
+  smart-home-api:
