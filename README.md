@@ -11,6 +11,7 @@ Prepare the environment by installing Poetry, then run `poetry install` and `poe
 Create a `.env` file in the root directory as follows:
 ```
 SECRET_KEY=unsafe
+CSRF_ORIGIN=http://localhost:8000
 ```
 Before you build the Docker image, run:
 ```bash

@@ -23,8 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 UNSECURE = "FDASFGHgfdsggsdls';ddsadsadghfdnkopa9-0fi9qfjcdsadsa#4h!@0@0$&-6!3!q8!^8@l5@7@_j^@5z#4&i&@_!m5@8!$!@^"
 SECRET_KEY = os.getenv("SECRET_KEY", UNSECURE)
-if SECRET_KEY == UNSECURE:
-    print("Warning: SECRET_KEY is insecure")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -119,6 +118,9 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = False
 SECURE_HSTS_SECONDS = 0
+CSRF_ORIGIN = os.getenv("CSRF_ORIGIN", "")
+CSRF_TRUSTED_ORIGINS = [CSRF_ORIGIN]
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -144,3 +146,9 @@ STATIC_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+if SECRET_KEY == UNSECURE:
+    print("Warning: SECRET_KEY is insecure")
+if CSRF_ORIGIN == "":
+    print("Warning: CSRF_ORIGIN is not set")
