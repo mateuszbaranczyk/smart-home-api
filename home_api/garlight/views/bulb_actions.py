@@ -37,7 +37,7 @@ class BulbViewSet(ModelViewSet):
     def discover(self, request: Request):
         discovered = self.fetch_discovered_bulbs()
         existing = YeelightBulb.objects.all().values_list("bulb_id", flat=True)
-        bulbs = self.create_db_obj(discovered, existing) # type: ignore
+        bulbs = self.create_db_obj(discovered, existing)  # type: ignore
         YeelightBulb.objects.bulk_create(bulbs)
         return HttpResponseRedirect(reverse("bulb-list"))
 
@@ -77,21 +77,31 @@ class YeelightViewSet(RetrieveModelMixin, GenericViewSet):
 
 class GarminEndpointsViewSet(ListModelMixin, GenericViewSet):
     """Return a list of all endpoints for the Garmin device."""
+
     def list(self, request: Request, *args, **kwargs):
         all = "- all,Yeelight\n"
         device_names = Endpoint.objects.values_list(
             "device__name", flat=True
         ).distinct()
         by_device = [
-            self.get_device_actions(device_name) for device_name in device_names
+            self.get_device_actions(device_name)
+            for device_name in device_names
         ]
-        return HttpResponse(all + "".join(by_device), content_type="text/plain")
+        return HttpResponse(
+            all + "".join(by_device), content_type="text/plain"
+        )
 
     def get_device_actions(self, device_name: str) -> str:
-        endpoints_for_device = Endpoint.objects.filter(device__name=device_name)
-        actions = endpoints_for_device.values_list("action", flat=True).distinct()
+        endpoints_for_device = Endpoint.objects.filter(
+            device__name=device_name
+        )
+        actions = endpoints_for_device.values_list(
+            "action", flat=True
+        ).distinct()
         actions_presets = [
-            self.get_action_presets(action_name=action, device_name=device_name)
+            self.get_action_presets(
+                action_name=action, device_name=device_name
+            )
             for action in actions
         ]
         device_definitions = f"-- {device_name},{device_name.capitalize()}\n"

@@ -57,14 +57,14 @@ class SmartBulb:
         status = self.bulb.set_scene(
             SceneClass.COLOR, color.r, color.g, color.b, color.brightness
         )
-        return self._status_return(status) # type: ignore
+        return self._status_return(status)  # type: ignore
 
     def set_temperature(self, temperature: Temperature) -> str:
         """Temperature in range 1700-6500, brightness 1-100"""
         status = self.bulb.set_scene(
             SceneClass.CT, temperature.kelvins, temperature.brightness
         )
-        return self._status_return(status) # type: ignore
+        return self._status_return(status)  # type: ignore
 
     def _status_return(self, status: str) -> str:
         if status == "ok":
@@ -77,7 +77,7 @@ class SmartBulb:
         if state == "off":
             self.bulb.turn_on()
         status = self.bulb.set_brightness(brightness)
-        return self._status_return(status) # type: ignore
+        return self._status_return(status)  # type: ignore
 
 
 @dataclass(frozen=True)

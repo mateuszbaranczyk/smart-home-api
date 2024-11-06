@@ -9,7 +9,11 @@ from garlight.models import (
     YeelightBulb,
     presets,
 )
-from rest_framework.serializers import IntegerField, ModelSerializer, ValidationError
+from rest_framework.serializers import (
+    IntegerField,
+    ModelSerializer,
+    ValidationError,
+)
 
 
 class BulbSerializer(ModelSerializer):
@@ -93,7 +97,9 @@ class EndpointSerializer(ModelSerializer):
 
     def _filter_presets(self, presets: dict, action: str) -> KeysView:
         filtered = {
-            key: value for key, value in presets.items() if action.capitalize() in value
+            key: value
+            for key, value in presets.items()
+            if action.capitalize() in value
         }
         return filtered.keys()
 

@@ -1,4 +1,10 @@
-from django.db.models import CASCADE, CharField, ForeignKey, IntegerField, Model
+from django.db.models import (
+    CASCADE,
+    CharField,
+    ForeignKey,
+    IntegerField,
+    Model,
+)
 from django.db.utils import OperationalError
 
 # register your models here and add them to the presets function
@@ -61,15 +67,21 @@ def presets() -> dict[str, str]:
     try:
         color = [
             (color_preset, "Color - " + color_preset)
-            for color_preset in Color.objects.all().values_list("name", flat=True)
+            for color_preset in Color.objects.all().values_list(
+                "name", flat=True
+            )
         ]
         temperature = [
             (color_preset, "Temperature - " + color_preset)
-            for color_preset in Temperature.objects.all().values_list("name", flat=True)
+            for color_preset in Temperature.objects.all().values_list(
+                "name", flat=True
+            )
         ]
         timer = [
             (str(color_preset), "Timer - " + str(color_preset))
-            for color_preset in Timer.objects.all().values_list("minutes", flat=True)
+            for color_preset in Timer.objects.all().values_list(
+                "minutes", flat=True
+            )
         ]
         brightness = [
             (brightness_preset, "Brightness - " + brightness_preset)
@@ -88,7 +100,7 @@ class Endpoint(Model):
     name = CharField(max_length=16, default="")
     action = CharField(max_length=16, choices=ACTIONS)
     device = ForeignKey(YeelightBulb, on_delete=CASCADE)
-    preset = CharField(max_length=16, choices=presets) # type: ignore
+    preset = CharField(max_length=16, choices=presets)  # type: ignore
 
     @property
     def path(self):
