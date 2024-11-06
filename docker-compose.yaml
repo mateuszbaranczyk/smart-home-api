@@ -9,3 +9,4 @@ services:
 
 volumes:
   smart-home-api:
+    external: true
