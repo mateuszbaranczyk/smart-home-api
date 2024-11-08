@@ -12,7 +12,7 @@ from authentication.serializers import LoginSerializer
 class Auth(APIView):
     is_developer = settings.DEVELOPER
     permission_classes = [
-        IsAuthenticated if is_developer == "False" else AllowAny
+        IsAuthenticated if is_developer is False else AllowAny
     ]
 
 
@@ -49,6 +49,6 @@ class LoginView(APIView):
 
 
 class LogoutView(APIView):
-    def post(self, request):
+    def get(self, request):
         logout(request)
         return redirect("/")

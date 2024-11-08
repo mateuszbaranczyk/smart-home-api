@@ -8,10 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 UNSECURE = "FDASFGHgfdsggsdls';ddsadsadghfdnkopa9-0fi9qfjcdsadsa#4h!@0@0$&-6!3!q8!^8@l5@7@_j^@5z#4&i&@_!m5@8!$!@^"
 SECRET_KEY = os.getenv("SECRET_KEY", UNSECURE)
 
-DEVELOPER = os.getenv("DEVELOPER", "False")
+DEVELOPER = os.getenv("DEVELOPER", False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if DEVELOPER == "False" else True
+DEBUG = False if DEVELOPER is False else True
 
 ALLOWED_HOSTS = ["*"]
 
