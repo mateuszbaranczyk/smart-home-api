@@ -24,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 UNSECURE = "FDASFGHgfdsggsdls';ddsadsadghfdnkopa9-0fi9qfjcdsadsa#4h!@0@0$&-6!3!q8!^8@l5@7@_j^@5z#4&i&@_!m5@8!$!@^"
 SECRET_KEY = os.getenv("SECRET_KEY", UNSECURE)
 
+DEVELOPER = os.getenv("DEVELOPER", "False")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = False if DEVELOPER == "False" else True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -152,3 +153,5 @@ if SECRET_KEY == UNSECURE:
     print("Warning: SECRET_KEY is insecure")
 if CSRF_ORIGIN == "":
     print("Warning: CSRF_ORIGIN is not set")
+if DEVELOPER == "True":
+    print("Warning: Developer mode is on")
