@@ -1,0 +1,28 @@
+
+
+{% load rest_framework %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Login</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+            <h2 class="text-center mb-4">Login</h2>
+            <form action="{% url 'login' %}" method="post" novalidate>
+                {% csrf_token %}
+                {% render_form serializer template_pack='rest_framework/vertical' %}
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </form>
+        </div>
+    </div>
+  </body>
+</html>
