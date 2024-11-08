@@ -9,6 +9,7 @@ from garlight.serializers import (
 from rest_framework.viewsets import ModelViewSet
 from authentication.views import Auth
 
+
 class ColorViewSet(ModelViewSet, Auth):
     queryset = Color.objects.all()
     serializer_class = ColorSerializer
