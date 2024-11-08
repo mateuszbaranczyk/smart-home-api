@@ -7,28 +7,28 @@ from garlight.serializers import (
     TimerSerializer,
 )
 from rest_framework.viewsets import ModelViewSet
+from authentication.views import Auth
 
-
-class ColorViewSet(ModelViewSet):
+class ColorViewSet(ModelViewSet, Auth):
     queryset = Color.objects.all()
     serializer_class = ColorSerializer
 
 
-class TemperatureViewSet(ModelViewSet):
+class TemperatureViewSet(ModelViewSet, Auth):
     queryset = Temperature.objects.all()
     serializer_class = TemperatureSerializer
 
 
-class TimerViewSet(ModelViewSet):
+class TimerViewSet(ModelViewSet, Auth):
     queryset = Timer.objects.all()
     serializer_class = TimerSerializer
 
 
-class BrightnessViewSet(ModelViewSet):
+class BrightnessViewSet(ModelViewSet, Auth):
     queryset = Brightness.objects.all()
     serializer_class = BrightnessSerializer
 
 
-class EndpointViewSet(ModelViewSet):
+class EndpointViewSet(ModelViewSet, Auth):
     queryset = Endpoint.objects.all()
     serializer_class = EndpointSerializer

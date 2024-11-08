@@ -17,9 +17,10 @@ from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.request import Request
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from yeelight import discover_bulbs
+from authentication.views import Auth
 
 
-class BulbViewSet(ModelViewSet):
+class BulbViewSet(ModelViewSet, Auth):
     queryset = YeelightBulb.objects.all()
     serializer_class = BulbSerializer
     lookup_field = "name"
