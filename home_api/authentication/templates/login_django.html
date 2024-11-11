@@ -1,0 +1,33 @@
+{% extends "rest_framework/base.html" %}
+{% load rest_framework %}
+
+{% block body %}
+<body class="container">
+  <div class="container-fluid" style="margin-top: 30px">
+    <div class="row-fluid">
+      <div class="well" style="width: 320px; margin-left: auto; margin-right: auto">
+        <div class="row-fluid">
+          <div>
+            {% block branding %}<h3 style="margin: 0 0 20px;">Smart Home - API</h3>{% endblock %}
+          </div>
+        </div><!-- /row fluid -->
+
+        <div class="row-fluid">
+          <div>
+            <div class="container d-flex align-items-center justify-content-center">
+                <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+                    <h2 class="text-center mb-4">Login</h2>
+                    <form action="{% url 'login' %}" method="post" novalidate>
+                        {% csrf_token %}
+                        {% render_form serializer template_pack='rest_framework/vertical' %}
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div><!-- /.row-fluid -->
+      </div><!--/.well-->
+    </div><!-- /.row-fluid -->
+  </div><!-- /.container-fluid -->
+</body>
+{% endblock %}
