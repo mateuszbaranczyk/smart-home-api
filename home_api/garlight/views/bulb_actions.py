@@ -1,3 +1,4 @@
+from authentication.views import Auth, GarminAuth
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -17,7 +18,6 @@ from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.request import Request
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from yeelight import discover_bulbs
-from authentication.views import Auth
 
 
 class BulbViewSet(ModelViewSet, Auth):
@@ -63,7 +63,7 @@ class BulbViewSet(ModelViewSet, Auth):
         return bulbs
 
 
-class YeelightViewSet(RetrieveModelMixin, GenericViewSet):
+class YeelightViewSet(RetrieveModelMixin, GenericViewSet, GarminAuth):
     queryset = YeelightBulb.objects.all()
     serializer_class = NameSerializer
     lookup_field = "name"
@@ -76,7 +76,7 @@ class YeelightViewSet(RetrieveModelMixin, GenericViewSet):
         return keys
 
 
-class GarminEndpointsViewSet(ListModelMixin, GenericViewSet):
+class GarminEndpointsViewSet(ListModelMixin, GenericViewSet, GarminAuth):
     """Return a list of all endpoints for the Garmin device."""
 
     def list(self, request: Request, *args, **kwargs):
