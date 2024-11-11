@@ -1,8 +1,11 @@
-from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authentication import (
+    BasicAuthentication,
+    SessionAuthentication,
+)
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -10,10 +13,12 @@ from authentication.serializers import LoginSerializer
 
 
 class Auth(APIView):
-    is_developer = settings.DEVELOPER
-    permission_classes = [
-        IsAuthenticated if is_developer is False else AllowAny
-    ]
+    permission_classes = [IsAuthenticated]
+
+
+class GarminAuth(APIView):
+    authentication_classes = [BasicAuthentication, SessionAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class LoginView(APIView):
