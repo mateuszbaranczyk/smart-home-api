@@ -5,7 +5,7 @@ from rest_framework.authentication import (
     BasicAuthentication,
     SessionAuthentication,
 )
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -13,7 +13,7 @@ from authentication.serializers import LoginSerializer
 
 
 class Auth(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
 
 class GarminAuth(APIView):
