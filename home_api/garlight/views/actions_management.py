@@ -1,3 +1,4 @@
+from authentication.views import Auth
 from garlight.models import Brightness, Color, Endpoint, Temperature, Timer
 from garlight.serializers import (
     BrightnessSerializer,
@@ -7,7 +8,6 @@ from garlight.serializers import (
     TimerSerializer,
 )
 from rest_framework.viewsets import ModelViewSet
-from authentication.views import Auth
 
 
 class ColorViewSet(ModelViewSet, Auth):
