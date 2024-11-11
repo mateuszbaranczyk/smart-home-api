@@ -24,7 +24,7 @@ class GarminAuth(APIView):
 class LoginView(APIView):
     def get(self, request):
         serializer = LoginSerializer()
-        return render(request, "login_django.html", {"serializer": serializer})
+        return render(request, "login.html", {"serializer": serializer})
 
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
