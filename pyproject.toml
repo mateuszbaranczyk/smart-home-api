@@ -14,6 +14,7 @@ flake8-pyproject = "^1.2.3"
 gunicorn = "^23.0.0"
 whitenoise = "^6.8.2"
 werkzeug = ">=3.0.6"
+pytest-django = "^4.9.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.7.2"
@@ -23,6 +24,9 @@ line-length = 79
 exclude = ['./home_api/garlight/views/__init__.py', '*/migrations/*']
 lint.extend-select = ["I"]
 
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "home_api.settings"
+python_files = "test_*.py"
 
 [build-system]
 requires = ["poetry-core"]
