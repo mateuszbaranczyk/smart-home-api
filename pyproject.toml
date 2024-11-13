@@ -21,6 +21,8 @@ ruff = "^0.7.2"
 [tool.ruff]
 line-length = 79
 exclude = ['./home_api/garlight/views/__init__.py', '*/migrations/*']
+lint.extend-select = ["I"]
+
 
 [build-system]
 requires = ["poetry-core"]
