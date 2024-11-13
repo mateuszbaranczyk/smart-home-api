@@ -1,3 +1,4 @@
+from django.urls import path, include
 from garlight import views
 from rest_framework.routers import DefaultRouter
 
@@ -20,4 +21,7 @@ device_router.register(r"brightness", views.BulbBrightnessViewSet, basename="bri
 device_router.register(r"endpoints", views.GarminEndpointsViewSet, basename="endpoints")
 # fmt: on
 
-garlight_urls = app_router.urls + device_router.urls
+garlight_urls = [
+    path("", include(app_router.urls)),
+    path("", include(device_router.urls)),
+]
