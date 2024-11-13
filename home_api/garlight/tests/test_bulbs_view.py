@@ -83,6 +83,6 @@ def test_bulbs_contains_action_urls(admin_client):
     response = admin_client.get(
         reverse("bulb-detail", args=[bulb_data["name"]])
     )
-    
+
     assert response.status_code == 200
     assert response.json()["urls"][0] == expected_value
