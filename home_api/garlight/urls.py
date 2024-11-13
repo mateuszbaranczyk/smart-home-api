@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import include, path
 from garlight import views
 from rest_framework.routers import DefaultRouter
 
