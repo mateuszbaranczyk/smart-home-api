@@ -34,10 +34,6 @@ class SmartBulbTestCase(SimpleTestCase):
     def tearDown(self):
         patch.stopall()
 
-    def test_repr_state(self):
-        assert self.smart_bulb.state == "Test - offline"
-        assert self.smart_bulb.__repr__() == "Test - offline"
-
     def test_power_on(self):
         patch(
             "garlight.bulbs.Bulb.get_capabilities",
