@@ -21,6 +21,7 @@ class ActionsMixin(TestCase):
     def tearDown(self):
         patch.stopall()
 
+
 class YeelightViewSetTest(ActionsMixin):
     def setUp(self):
         super().setUp()
@@ -112,7 +113,7 @@ class BrightnessTest(ActionsMixin):
         self.brightness = Brightness.objects.create(
             name="test_brightness", brightness=100
         )
-    
+
     def test_brightness(self):
         self.url += f"?{self.brightness.name}"
         response = self.client.get(self.url)

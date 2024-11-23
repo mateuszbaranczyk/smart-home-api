@@ -18,7 +18,6 @@ class BulbsViewTest(TestCase):
         response = self.client.post(reverse("bulb-list"), data)
         assert response.status_code == 405
 
-
     def test_list_bulbs(self):
         bulb_data = {"name": "test_bulb", "ip": "1.1.1.1", "bulb_id": "1"}
         YeelightBulb.objects.create(**bulb_data)
@@ -26,7 +25,6 @@ class BulbsViewTest(TestCase):
         bulb = YeelightBulb.objects.get(name=bulb_data["name"])
         assert response.status_code == 200
         assert response.json()[0]["name"] == bulb.name
-
 
     def test_get_bulb_by_name(self):
         bulb_data = {"name": "test_bulb", "ip": "1.1.1.1", "bulb_id": "1"}
@@ -36,7 +34,6 @@ class BulbsViewTest(TestCase):
         )
         assert response.status_code == 200
         assert response.json()["name"] == bulb_data["name"]
-
 
     def test_update_bulb(self):
         bulb_data = {"name": "test_bulb", "ip": "1.1.1.1", "bulb_id": "1"}
@@ -49,7 +46,6 @@ class BulbsViewTest(TestCase):
         )
         assert response.status_code == 200
         assert response.json()["name"] == new_data["name"]
-
 
     @patch("garlight.views.bulb_actions.discover_bulbs")
     def test_discover_and_assign_bulb(self, mock):
@@ -79,7 +75,6 @@ class BulbsViewTest(TestCase):
         result = YeelightBulb.objects.get(bulb_id=bulb_id)
         assert response.status_code == 302
         assert result.name == bulb_id
-
 
     def test_bulbs_contains_action_urls(self):
         bulb_data = {"name": "test_bulb", "ip": "1.1.1.1", "bulb_id": "1"}
