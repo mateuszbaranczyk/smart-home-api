@@ -16,14 +16,25 @@ class LoginTest(TestCase):
         data = {
             "username": "test",
             "password": "password",
-            "remember_me": False,
+            "remember_me": True,
         }
         User.objects.create_user(
             username=data["username"], password=data["password"]
         )
         response = self.client.post(reverse("login"), data)
+        assert self.client.session is not None
         assert response.status_code == 302
 
     def test_logout(self):
         response = self.client.get(reverse("logout"))
         assert response.status_code == 302
+
+    def test_login_failed(self):
+        data = {
+            "username": "test",
+            "password": "password",
+            "remember_me": False,
+        }
+        response = self.client.post(reverse("login"), data)
+        assert response.status_code == 400
+        assert "Invalid credentials" in response.content.decode()
