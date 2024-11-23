@@ -2,6 +2,13 @@ from authentication.views import Auth, GarminAuth
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from rest_framework.decorators import action
+from rest_framework.exceptions import MethodNotAllowed, NotFound
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+from rest_framework.request import Request
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
+from yeelight import discover_bulbs
+
 from garlight.bulbs import BulbInfo, SmartBulb
 from garlight.models import (
     Brightness,
@@ -12,12 +19,6 @@ from garlight.models import (
     YeelightBulb,
 )
 from garlight.serializers import BulbSerializer, NameSerializer
-from rest_framework.decorators import action
-from rest_framework.exceptions import MethodNotAllowed, NotFound
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
-from rest_framework.request import Request
-from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from yeelight import discover_bulbs
 
 
 class BulbViewSet(ModelViewSet, Auth):
@@ -154,7 +155,7 @@ class BulbTimerViewSet(YeelightViewSet):
         time = self.get_query_key(request)
         minutes = Timer.objects.filter(minutes=time).first().minutes
         bulb = SmartBulb(instance)
-        result = bulb.set_timier(minutes)
+        result = bulb.set_timer(minutes)
         return HttpResponse(result, content_type="text/plain")
 
 

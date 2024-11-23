@@ -1,5 +1,11 @@
 from collections.abc import KeysView
 
+from rest_framework.serializers import (
+    IntegerField,
+    ModelSerializer,
+    ValidationError,
+)
+
 from garlight.models import (
     Brightness,
     Color,
@@ -8,11 +14,6 @@ from garlight.models import (
     Timer,
     YeelightBulb,
     presets,
-)
-from rest_framework.serializers import (
-    IntegerField,
-    ModelSerializer,
-    ValidationError,
 )
 
 

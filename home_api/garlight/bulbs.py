@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 
-from garlight.models import Color, Temperature, YeelightBulb
 from yeelight import Bulb, CronType, SceneClass
+
+from garlight.models import Color, Temperature, YeelightBulb
 
 
 class BulbException(Exception):
@@ -46,7 +47,7 @@ class SmartBulb:
         state = data["power"] if data else "offline"
         return state
 
-    def set_timier(self, minutes: int = 15):
+    def set_timer(self, minutes: int = 15):
         status = self.bulb.cron_add(CronType.off, minutes)
         if status == "ok":
             return f"Timer to {minutes} min."
