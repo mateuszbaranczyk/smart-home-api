@@ -154,7 +154,7 @@ class BulbTimerViewSet(YeelightViewSet):
         time = self.get_query_key(request)
         minutes = Timer.objects.filter(minutes=time).first().minutes
         bulb = SmartBulb(instance)
-        result = bulb.set_timier(minutes)
+        result = bulb.set_timer(minutes)
         return HttpResponse(result, content_type="text/plain")
 
 
