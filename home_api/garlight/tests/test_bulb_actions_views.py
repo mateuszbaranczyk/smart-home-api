@@ -41,7 +41,7 @@ class YeelightViewSetTest(ActionsMixin):
 class PowerTest(ActionsMixin):
     def setUp(self):
         super().setUp()
-        self.url = f"/on-off/{self.bulb.name}/"
+        self.url = reverse("bulb-power-detail", args=[self.bulb.name])
         patch("garlight.bulbs.SmartBulb.on_off", return_value="test").start()
 
     def test_power(self):
