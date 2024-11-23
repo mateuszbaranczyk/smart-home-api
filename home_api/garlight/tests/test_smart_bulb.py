@@ -1,9 +1,9 @@
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 
 from django.test import SimpleTestCase
 
 from garlight.bulbs import SmartBulb
-from garlight.models import YeelightBulb, Color, Temperature
+from garlight.models import Color, Temperature, YeelightBulb
 
 DISCOVERY = {
     "ip": "1.1.1.1",
@@ -26,6 +26,7 @@ DISCOVERY = {
 
 
 class SmartBulbTestCase(SimpleTestCase):
+    # Useless for now but can be useful in the future refactoring
     def setUp(self):
         yeelight = YeelightBulb(name="Test", ip="1.1.1.1", bulb_id="xxtest123")
         self.smart_bulb = SmartBulb(yeelight)
