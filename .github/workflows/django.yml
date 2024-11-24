@@ -1,4 +1,4 @@
-name: Django Tests
+name: Checks
 
 on:
   push:
@@ -32,4 +32,8 @@ jobs:
       run: |
         export DJANGO_SETTINGS_MODULE=home_api.settings
         cd home_api
-        pytest -cov
+        pytest --cov
+        coverage report --fail-under=95
+    - name: Run Lint
+      run: |
+        ruff check --output-format=github .
