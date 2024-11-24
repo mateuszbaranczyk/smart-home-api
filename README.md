@@ -5,7 +5,12 @@ This is an API for managing smart home devices designed to work with Garmin and 
 Prepare the environment by installing Poetry, then run `poetry install` and `poetry shell`. Change the directory to `/home_api`. To start Django, run `python3 manage.py runserver`.
 
 ## Tests
-#TODO
+Run tes in `home_api` directory.
+```bash
+pytest
+# for coverage
+pytest --cov
+```
 
 ## Deployment
 Create a `.env` file in the root directory as follows:
