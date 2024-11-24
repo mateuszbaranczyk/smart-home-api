@@ -1,4 +1,4 @@
-name: Tests and Coverage
+name: Django Tests
 
 on:
   push:
@@ -32,5 +32,5 @@ jobs:
       run: |
         export DJANGO_SETTINGS_MODULE=home_api.settings
         cd home_api
-        pytest -cov
+        pytest --cov
         coverage report --fail-under=95
