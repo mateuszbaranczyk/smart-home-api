@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from garlight.models import (
     Brightness,
     Color,
