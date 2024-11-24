@@ -27,9 +27,9 @@ jobs:
         pip install -r requirements.txt
     - name: Prepare env
       run: |
-        export DJANGO_SETTINGS_MODULE=home_api.settings
         python home_api/manage.py collectstatic
     - name: Run Tests
       run: |
+        export DJANGO_SETTINGS_MODULE=home_api.settings
         cd home_api
         pytest -cov
