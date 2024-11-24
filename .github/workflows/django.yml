@@ -27,5 +27,6 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
+        export DJANGO_SETTINGS_MODULE=home_api.settings
         cd home_api
         pytest -cov
