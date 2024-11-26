@@ -3,7 +3,7 @@ from rest_framework import HTTP_HEADER_ENCODING, exceptions
 from rest_framework.authentication import TokenAuthentication
 
 
-class ApiKeyAuth(TokenAuthentication):
+class ApiKeyAuthentication(TokenAuthentication):
     def authenticate(self, request):
         auth = self.get_x_api_key_header(request).split()
 
