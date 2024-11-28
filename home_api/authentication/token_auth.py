@@ -5,7 +5,7 @@ from rest_framework.authentication import TokenAuthentication
 
 class ApiKeyAuthentication(TokenAuthentication):
     def authenticate(self, request):
-        auth = self.get_x_api_key_header(request).split()
+        auth = self.get_authorization_header(request).split()
 
         if not auth or auth[0].lower() != self.keyword.lower().encode():
             return None
@@ -29,8 +29,8 @@ class ApiKeyAuthentication(TokenAuthentication):
 
         return self.authenticate_credentials(token)
 
-    def get_x_api_key_header(self, request):
-        auth = request.META.get("HTTP_X_API_KEY", b"")
+    def get_authorization_header(self, request):
+        auth = request.META.get("Authorization", b"")
         if isinstance(auth, str):
             # Work around django test client oddness
             auth = auth.encode(HTTP_HEADER_ENCODING)
