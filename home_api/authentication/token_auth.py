@@ -30,7 +30,7 @@ class ApiKeyAuthentication(TokenAuthentication):
         return self.authenticate_credentials(token)
 
     def get_authorization_header(self, request):
-        auth = request.META.get("Authorization", b"")
+        auth = request.META.get("HTTP_AUTHORIZATION", b"")
         if isinstance(auth, str):
             # Work around django test client oddness
             auth = auth.encode(HTTP_HEADER_ENCODING)
