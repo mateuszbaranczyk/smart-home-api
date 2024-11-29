@@ -5,11 +5,13 @@ from rest_framework.authentication import (
     BasicAuthentication,
     SessionAuthentication,
 )
+from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from authentication.serializers import LoginSerializer
+from authentication.token_auth import ApiKeyAuthentication
 
 
 class Auth(APIView):
@@ -17,7 +19,11 @@ class Auth(APIView):
 
 
 class GarminAuth(APIView):
-    authentication_classes = [BasicAuthentication, SessionAuthentication]
+    authentication_classes = [
+        ApiKeyAuthentication,
+        BasicAuthentication,
+        SessionAuthentication,
+    ]
     permission_classes = [IsAuthenticated]
 
 
@@ -57,3 +63,13 @@ class LogoutView(APIView):
     def get(self, request):
         logout(request)
         return redirect("/")
+
+
+class TokenView(APIView):
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({"token": f"Token {token.key}"})
