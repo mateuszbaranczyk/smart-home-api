@@ -17,11 +17,13 @@ class AirQuality:
     us_epa_index: int
     gb_defra_index: int
 
+
 @dataclass(frozen=True)
 class Condition:
     text: str
     icon: str
     code: int
+
 
 @dataclass(frozen=True)
 class Astro:
@@ -33,6 +35,7 @@ class Astro:
     moon_illumination: int
     is_moon_up: int
     is_sun_up: int
+
 
 @dataclass(frozen=True)
 class Hour:
@@ -72,6 +75,7 @@ class Hour:
     uv: int
     air_quality: AirQuality
 
+
 @dataclass(frozen=True)
 class Day:
     maxtemp_c: float
@@ -96,6 +100,7 @@ class Day:
     uv: float
     air_quality: AirQuality
 
+
 @dataclass(frozen=True)
 class ForecastDay:
     date: str
@@ -104,8 +109,9 @@ class ForecastDay:
     astro: Astro
     hour: List[Hour]
 
+
 @dataclass(frozen=True)
-class Location:
+class Location_:
     name: str
     region: str
     country: str
@@ -114,6 +120,7 @@ class Location:
     tz_id: str
     localtime_epoch: int
     localtime: str
+
 
 @dataclass(frozen=True)
 class Current:
@@ -148,21 +155,25 @@ class Current:
     gust_kph: float
     air_quality: AirQuality
 
+
 @dataclass(frozen=True)
 class Forecast:
     forecastday: List[ForecastDay]
 
+
 @dataclass(frozen=True)
 class WeatherForecast:
-    location: Location
+    location: Location_
     current: Current
     forecast: Forecast
+
 
 @dataclass(frozen=True)
 class AdapterResponse:
     status_code: int
     data: Optional[WeatherForecast] = None
     error: Optional[str] = None
+
 
 class WeatherAdapter:
     def __init__(self, location: Location) -> None:
@@ -175,5 +186,9 @@ class WeatherAdapter:
     def get_weather(self) -> AdapterResponse:
         response = requests.get(self.url)
         if response.status_code != 200:
-            return AdapterResponse(status_code=response.status_code, error=response.json())
-        return AdapterResponse(status_code=response.status_code, data=response.json())
+            return AdapterResponse(
+                status_code=response.status_code, error=response.json()
+            )
+        return AdapterResponse(
+            status_code=response.status_code, data=response.json()
+        )
