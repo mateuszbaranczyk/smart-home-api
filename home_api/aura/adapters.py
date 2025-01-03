@@ -6,7 +6,7 @@ import requests
 from aura.models import Location
 
 
-@dataclass
+@dataclass(frozen=True)
 class AirQuality:
     co: float
     no2: float
@@ -17,13 +17,13 @@ class AirQuality:
     us_epa_index: int
     gb_defra_index: int
 
-@dataclass
+@dataclass(frozen=True)
 class Condition:
     text: str
     icon: str
     code: int
 
-@dataclass
+@dataclass(frozen=True)
 class Astro:
     sunrise: str
     sunset: str
@@ -34,7 +34,7 @@ class Astro:
     is_moon_up: int
     is_sun_up: int
 
-@dataclass
+@dataclass(frozen=True)
 class Hour:
     time_epoch: int
     time: str
@@ -72,7 +72,7 @@ class Hour:
     uv: int
     air_quality: AirQuality
 
-@dataclass
+@dataclass(frozen=True)
 class Day:
     maxtemp_c: float
     maxtemp_f: float
@@ -96,7 +96,7 @@ class Day:
     uv: float
     air_quality: AirQuality
 
-@dataclass
+@dataclass(frozen=True)
 class ForecastDay:
     date: str
     date_epoch: int
@@ -104,7 +104,7 @@ class ForecastDay:
     astro: Astro
     hour: List[Hour]
 
-@dataclass
+@dataclass(frozen=True)
 class Location:
     name: str
     region: str
@@ -115,7 +115,7 @@ class Location:
     localtime_epoch: int
     localtime: str
 
-@dataclass
+@dataclass(frozen=True)
 class Current:
     last_updated_epoch: int
     last_updated: str
@@ -148,17 +148,17 @@ class Current:
     gust_kph: float
     air_quality: AirQuality
 
-@dataclass
+@dataclass(frozen=True)
 class Forecast:
     forecastday: List[ForecastDay]
 
-@dataclass
+@dataclass(frozen=True)
 class WeatherForecast:
     location: Location
     current: Current
     forecast: Forecast
 
-@dataclass
+@dataclass(frozen=True)
 class AdapterResponse:
     status_code: int
     data: Optional[WeatherForecast] = None
