@@ -165,15 +165,14 @@ class AdapterResponse:
     error: Optional[str] = None
 
 class WeatherAdapter:
-    def __init__(self, location: Location):
+    def __init__(self, location: Location) -> None:
         api_key = location.api_key
         aqi = "yes" if location.air_quality else "no"
         url = "https://api.weatherapi.com/v1/forecast.json?"
         params = f"key={api_key}&q={location.lat},{location.lon}&days=1&aqi={aqi}&alerts=no"
         self.url = url + params
 
-
-    def get_weather(self, city):
+    def get_weather(self) -> AdapterResponse:
         response = requests.get(self.url)
         if response.status_code != 200:
             return AdapterResponse(status_code=response.status_code, error=response.json())
