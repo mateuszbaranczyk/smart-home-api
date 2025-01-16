@@ -1,13 +1,13 @@
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, TypedDict
 
 import requests
+from django.conf import settings
 
 from aura.models import Location
 
 
-@dataclass(frozen=True)
-class AirQuality:
+class AirQuality(TypedDict):
     co: float
     no2: float
     o3: float
@@ -18,15 +18,14 @@ class AirQuality:
     gb_defra_index: int
 
 
-@dataclass(frozen=True)
-class Condition:
+class Condition(TypedDict):
     text: str
     icon: str
     code: int
 
 
-@dataclass(frozen=True)
-class Astro:
+
+class Astro(TypedDict):
     sunrise: str
     sunset: str
     moonrise: str
@@ -37,8 +36,7 @@ class Astro:
     is_sun_up: int
 
 
-@dataclass(frozen=True)
-class Hour:
+class Hour(TypedDict):
     time_epoch: int
     time: str
     temp_c: float
@@ -76,8 +74,7 @@ class Hour:
     air_quality: AirQuality
 
 
-@dataclass(frozen=True)
-class Day:
+class Day(TypedDict):
     maxtemp_c: float
     maxtemp_f: float
     mintemp_c: float
@@ -101,8 +98,7 @@ class Day:
     air_quality: AirQuality
 
 
-@dataclass(frozen=True)
-class ForecastDay:
+class ForecastDay(TypedDict):
     date: str
     date_epoch: int
     day: Day
@@ -110,8 +106,7 @@ class ForecastDay:
     hour: List[Hour]
 
 
-@dataclass(frozen=True)
-class Location_:
+class Location_(TypedDict):
     name: str
     region: str
     country: str
@@ -122,8 +117,7 @@ class Location_:
     localtime: str
 
 
-@dataclass(frozen=True)
-class Current:
+class Current(TypedDict):
     last_updated_epoch: int
     last_updated: str
     temp_c: float
@@ -156,8 +150,7 @@ class Current:
     air_quality: AirQuality
 
 
-@dataclass(frozen=True)
-class Forecast:
+class Forecast(TypedDict):
     forecastday: List[ForecastDay]
 
 
@@ -176,11 +169,12 @@ class AdapterResponse:
 
 
 class WeatherAdapter:
+    """weatherapi.com"""
+
     def __init__(self, location: Location) -> None:
-        api_key = location.api_key
-        aqi = "yes" if location.air_quality else "no"
+        api_key = settings.WEATHER_API_KEY
         url = "https://api.weatherapi.com/v1/forecast.json?"
-        params = f"key={api_key}&q={location.lat},{location.lon}&days=1&aqi={aqi}&alerts=no"
+        params = f"key={api_key}&q={location.lat},{location.lon}&days=1&aqi=yes&alerts=no"
         self.url = url + params
 
     def get_weather(self) -> AdapterResponse:
@@ -189,6 +183,7 @@ class WeatherAdapter:
             return AdapterResponse(
                 status_code=response.status_code, error=response.json()
             )
+        data = WeatherForecast(**response.json())
         return AdapterResponse(
-            status_code=response.status_code, data=response.json()
+            status_code=response.status_code, data=data
         )
