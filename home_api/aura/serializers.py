@@ -1,9 +1,9 @@
 from rest_framework.serializers import ModelSerializer
 
-from aura.models import Location_
+from aura.models import Location
 
 
 class LocationSerializer(ModelSerializer):
     class Meta:
-        model = Location_
+        model = Location
         fields = "__all__"
