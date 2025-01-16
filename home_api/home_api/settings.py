@@ -9,7 +9,7 @@ UNSECURE = "FDASFGHgfdsggsdls';ddsadsadghfdnkopa9-0fi9qfjcdsadsa#4h!@0@0$&-6!3!q
 SECRET_KEY = os.getenv("SECRET_KEY", UNSECURE)
 
 DEVELOPER = bool(os.getenv("DEVELOPER", False))
-
+WEATHER_API_KEY = os.getenv("WEATHER_API_KEY", "")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if DEVELOPER is False else True
 
@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "garlight",
     "authentication",
+    "aura",
 ]
 
 REST_FRAMEWORK = {
