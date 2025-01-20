@@ -1,12 +1,8 @@
 services:
   backend:
-    container_name: garlight-sh
+    container_name: garlight
     build: .
     env_file: .env
     network_mode: host
     volumes:
-      - smart-home-api:/home_api/db.sqlite3
-
-volumes:
-  smart-home-api:
-    external: true
+      - /your/path/to/database:/app/home_api/database
