@@ -11,6 +11,7 @@ from aura.serializers import LocationSerializer
 class LocationViewSet(ModelViewSet, Auth):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
+    lookup_field = "name"
 
 
 class WeatherView(YeelightViewSet):
