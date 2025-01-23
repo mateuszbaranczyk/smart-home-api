@@ -107,6 +107,7 @@ class GarminEndpointsViewSet(ListModelMixin, GenericViewSet, GarminAuth):
             endpoints.join(
                 location_definition + current_endpoint + forecast_endpoint
             )
+        return endpoints
 
     def get_device_actions(self, device_name: str) -> str:
         endpoints_for_device = Endpoint.objects.filter(
