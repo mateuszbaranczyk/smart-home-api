@@ -20,6 +20,19 @@ Create a `.env` file in the root directory as follows:
 SECRET_KEY=unsafe
 CSRF_ORIGIN=http://localhost:8000
 ```
+Create `docker-compose.yaml` and replace volume path. Here sqlite db will be saved.
+```yaml
+services:
+  backend:
+    container_name: garlight
+    build: .
+    env_file: .env
+    network_mode: host
+    volumes:
+      - /your/path/to/database:/app/home_api/database
+
+```
+
 Before you build the Docker image, run:
 ```bash
 python3 manage.py collectstatic
