@@ -20,3 +20,9 @@ class WeatherAdapterTest(TestCase):
         adapter_response = self.adapter.get_weather()
         assert adapter_response.status_code == 200
         assert adapter_response.data.location['name'] == "Piastow"
+
+    @patch("aura.adapters.requests.get")
+    def test_get_weather_error(self, m_requests):
+        m_requests.return_value.status_code = 404
+        adapter_response = self.adapter.get_weather()
+        assert adapter_response.status_code == 404
