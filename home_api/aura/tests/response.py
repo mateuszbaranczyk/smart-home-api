@@ -1,5 +1,4 @@
-
-#https://api.weatherapi.com/v1/current.json?key=6616c24000f64710920183344250201&q=52.20232214086234,20.943791439663237&aqi=yes
+# https://api.weatherapi.com/v1/current.json?key=6616c24000f64710920183344250201&q=52.20232214086234,20.943791439663237&aqi=yes
 eg_current_response = {
     "location": {
         "name": "Piastow",
@@ -9,7 +8,7 @@ eg_current_response = {
         "lon": 22.85,
         "tz_id": "Europe/Warsaw",
         "localtime_epoch": 1735843371,
-        "localtime": "2025-01-02 19:42"
+        "localtime": "2025-01-02 19:42",
     },
     "current": {
         "last_updated_epoch": 1735842600,
@@ -20,7 +19,7 @@ eg_current_response = {
         "condition": {
             "text": "Partly cloudy",
             "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
-            "code": 1003
+            "code": 1003,
         },
         "wind_mph": 13.0,
         "wind_kph": 20.9,
@@ -53,9 +52,9 @@ eg_current_response = {
             "pm2_5": 26.825,
             "pm10": 28.86,
             "us-epa-index": 2,
-            "gb-defra-index": 3
-        }
-    }
+            "gb-defra-index": 3,
+        },
+    },
 }
 
 # https://api.weatherapi.com/v1/forecast.json?key=6616c24000f64710920183344250201&q=52.20232214086234,20.943791439663237&days=1&aqi=yes&alerts=no
@@ -68,7 +67,7 @@ eg_forecast_response = {
         "lon": 20.85,
         "tz_id": "Europe/Warsaw",
         "localtime_epoch": 1735841327,
-        "localtime": "2025-01-02 19:08"
+        "localtime": "2025-01-02 19:08",
     },
     "current": {
         "last_updated_epoch": 1735840800,
@@ -79,7 +78,7 @@ eg_forecast_response = {
         "condition": {
             "text": "Clear",
             "icon": "//cdn.weatherapi.com/weather/64x64/night/113.png",
-            "code": 1000
+            "code": 1000,
         },
         "wind_mph": 13.0,
         "wind_kph": 20.9,
@@ -112,8 +111,8 @@ eg_forecast_response = {
             "pm2_5": 26.825,
             "pm10": 28.86,
             "us-epa-index": 2,
-            "gb-defra-index": 3
-        }
+            "gb-defra-index": 3,
+        },
     },
     "forecast": {
         "forecastday": [
@@ -142,7 +141,7 @@ eg_forecast_response = {
                     "condition": {
                         "text": "Patchy rain nearby",
                         "icon": "//cdn.weatherapi.com/weather/64x64/day/176.png",
-                        "code": 1063
+                        "code": 1063,
                     },
                     "uv": 0.0,
                     "air_quality": {
@@ -153,8 +152,8 @@ eg_forecast_response = {
                         "pm2_5": 20.128,
                         "pm10": 24.2572,
                         "us-epa-index": 2,
-                        "gb-defra-index": 2
-                    }
+                        "gb-defra-index": 2,
+                    },
                 },
                 "astro": {
                     "sunrise": "07:46 AM",
@@ -164,7 +163,7 @@ eg_forecast_response = {
                     "moon_phase": "Waxing Crescent",
                     "moon_illumination": 5,
                     "is_moon_up": 0,
-                    "is_sun_up": 0
+                    "is_sun_up": 0,
                 },
                 "hour": [
                     {
@@ -176,7 +175,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Partly Cloudy ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
-                            "code": 1003
+                            "code": 1003,
                         },
                         "wind_mph": 23.9,
                         "wind_kph": 38.5,
@@ -214,8 +213,8 @@ eg_forecast_response = {
                             "pm2_5": 25.9,
                             "pm10": 28.49,
                             "us-epa-index": 2,
-                            "gb-defra-index": 3
-                        }
+                            "gb-defra-index": 3,
+                        },
                     },
                     {
                         "time_epoch": 1735776000,
@@ -226,7 +225,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Cloudy ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/119.png",
-                            "code": 1006
+                            "code": 1006,
                         },
                         "wind_mph": 23.7,
                         "wind_kph": 38.2,
@@ -264,8 +263,8 @@ eg_forecast_response = {
                             "pm2_5": 21.46,
                             "pm10": 24.79,
                             "us-epa-index": 2,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735779600,
@@ -276,7 +275,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Cloudy ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/119.png",
-                            "code": 1006
+                            "code": 1006,
                         },
                         "wind_mph": 23.5,
                         "wind_kph": 37.8,
@@ -314,8 +313,8 @@ eg_forecast_response = {
                             "pm2_5": 19.055,
                             "pm10": 22.2,
                             "us-epa-index": 2,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735783200,
@@ -326,7 +325,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Overcast ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/122.png",
-                            "code": 1009
+                            "code": 1009,
                         },
                         "wind_mph": 23.3,
                         "wind_kph": 37.4,
@@ -364,8 +363,8 @@ eg_forecast_response = {
                             "pm2_5": 17.02,
                             "pm10": 21.275,
                             "us-epa-index": 2,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735786800,
@@ -376,7 +375,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Overcast ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/122.png",
-                            "code": 1009
+                            "code": 1009,
                         },
                         "wind_mph": 23.7,
                         "wind_kph": 38.2,
@@ -414,8 +413,8 @@ eg_forecast_response = {
                             "pm2_5": 15.355,
                             "pm10": 19.425,
                             "us-epa-index": 1,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735790400,
@@ -426,7 +425,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Overcast ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/122.png",
-                            "code": 1009
+                            "code": 1009,
                         },
                         "wind_mph": 24.2,
                         "wind_kph": 38.9,
@@ -464,8 +463,8 @@ eg_forecast_response = {
                             "pm2_5": 13.135,
                             "pm10": 16.28,
                             "us-epa-index": 1,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735794000,
@@ -476,7 +475,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Cloudy ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/119.png",
-                            "code": 1006
+                            "code": 1006,
                         },
                         "wind_mph": 23.9,
                         "wind_kph": 38.5,
@@ -514,8 +513,8 @@ eg_forecast_response = {
                             "pm2_5": 12.95,
                             "pm10": 16.465,
                             "us-epa-index": 1,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735797600,
@@ -526,7 +525,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Patchy rain nearby",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/176.png",
-                            "code": 1063
+                            "code": 1063,
                         },
                         "wind_mph": 24.2,
                         "wind_kph": 38.9,
@@ -564,8 +563,8 @@ eg_forecast_response = {
                             "pm2_5": 12.765,
                             "pm10": 16.095,
                             "us-epa-index": 1,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735801200,
@@ -576,7 +575,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Patchy rain nearby",
                             "icon": "//cdn.weatherapi.com/weather/64x64/day/176.png",
-                            "code": 1063
+                            "code": 1063,
                         },
                         "wind_mph": 24.4,
                         "wind_kph": 39.2,
@@ -614,8 +613,8 @@ eg_forecast_response = {
                             "pm2_5": 13.69,
                             "pm10": 15.91,
                             "us-epa-index": 1,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735804800,
@@ -626,7 +625,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Overcast ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/day/122.png",
-                            "code": 1009
+                            "code": 1009,
                         },
                         "wind_mph": 24.2,
                         "wind_kph": 38.9,
@@ -664,8 +663,8 @@ eg_forecast_response = {
                             "pm2_5": 13.875,
                             "pm10": 15.355,
                             "us-epa-index": 1,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735808400,
@@ -676,7 +675,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Patchy rain nearby",
                             "icon": "//cdn.weatherapi.com/weather/64x64/day/176.png",
-                            "code": 1063
+                            "code": 1063,
                         },
                         "wind_mph": 23.9,
                         "wind_kph": 38.5,
@@ -714,8 +713,8 @@ eg_forecast_response = {
                             "pm2_5": 13.505,
                             "pm10": 16.465,
                             "us-epa-index": 1,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735812000,
@@ -726,7 +725,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Light drizzle",
                             "icon": "//cdn.weatherapi.com/weather/64x64/day/266.png",
-                            "code": 1153
+                            "code": 1153,
                         },
                         "wind_mph": 21.7,
                         "wind_kph": 34.9,
@@ -764,8 +763,8 @@ eg_forecast_response = {
                             "pm2_5": 10.545,
                             "pm10": 14.43,
                             "us-epa-index": 1,
-                            "gb-defra-index": 1
-                        }
+                            "gb-defra-index": 1,
+                        },
                     },
                     {
                         "time_epoch": 1735815600,
@@ -776,7 +775,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Patchy rain nearby",
                             "icon": "//cdn.weatherapi.com/weather/64x64/day/176.png",
-                            "code": 1063
+                            "code": 1063,
                         },
                         "wind_mph": 21.3,
                         "wind_kph": 34.2,
@@ -814,8 +813,8 @@ eg_forecast_response = {
                             "pm2_5": 9.99,
                             "pm10": 14.985,
                             "us-epa-index": 1,
-                            "gb-defra-index": 1
-                        }
+                            "gb-defra-index": 1,
+                        },
                     },
                     {
                         "time_epoch": 1735819200,
@@ -826,7 +825,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Light drizzle",
                             "icon": "//cdn.weatherapi.com/weather/64x64/day/266.png",
-                            "code": 1153
+                            "code": 1153,
                         },
                         "wind_mph": 20.4,
                         "wind_kph": 32.8,
@@ -864,8 +863,8 @@ eg_forecast_response = {
                             "pm2_5": 7.585,
                             "pm10": 13.32,
                             "us-epa-index": 1,
-                            "gb-defra-index": 1
-                        }
+                            "gb-defra-index": 1,
+                        },
                     },
                     {
                         "time_epoch": 1735822800,
@@ -876,7 +875,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Patchy rain nearby",
                             "icon": "//cdn.weatherapi.com/weather/64x64/day/176.png",
-                            "code": 1063
+                            "code": 1063,
                         },
                         "wind_mph": 18.1,
                         "wind_kph": 29.2,
@@ -914,8 +913,8 @@ eg_forecast_response = {
                             "pm2_5": 7.215,
                             "pm10": 11.655,
                             "us-epa-index": 1,
-                            "gb-defra-index": 1
-                        }
+                            "gb-defra-index": 1,
+                        },
                     },
                     {
                         "time_epoch": 1735826400,
@@ -926,7 +925,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Overcast ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/day/122.png",
-                            "code": 1009
+                            "code": 1009,
                         },
                         "wind_mph": 17.7,
                         "wind_kph": 28.4,
@@ -964,8 +963,8 @@ eg_forecast_response = {
                             "pm2_5": 7.955,
                             "pm10": 11.285,
                             "us-epa-index": 1,
-                            "gb-defra-index": 1
-                        }
+                            "gb-defra-index": 1,
+                        },
                     },
                     {
                         "time_epoch": 1735830000,
@@ -976,7 +975,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Partly Cloudy ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
-                            "code": 1003
+                            "code": 1003,
                         },
                         "wind_mph": 17.0,
                         "wind_kph": 27.4,
@@ -1014,8 +1013,8 @@ eg_forecast_response = {
                             "pm2_5": 9.25,
                             "pm10": 12.58,
                             "us-epa-index": 1,
-                            "gb-defra-index": 1
-                        }
+                            "gb-defra-index": 1,
+                        },
                     },
                     {
                         "time_epoch": 1735833600,
@@ -1026,7 +1025,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Overcast ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/122.png",
-                            "code": 1009
+                            "code": 1009,
                         },
                         "wind_mph": 14.5,
                         "wind_kph": 23.4,
@@ -1064,8 +1063,8 @@ eg_forecast_response = {
                             "pm2_5": 13.135,
                             "pm10": 14.615,
                             "us-epa-index": 1,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735837200,
@@ -1076,7 +1075,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Overcast ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/122.png",
-                            "code": 1009
+                            "code": 1009,
                         },
                         "wind_mph": 13.0,
                         "wind_kph": 20.9,
@@ -1114,8 +1113,8 @@ eg_forecast_response = {
                             "pm2_5": 20.35,
                             "pm10": 21.83,
                             "us-epa-index": 2,
-                            "gb-defra-index": 2
-                        }
+                            "gb-defra-index": 2,
+                        },
                     },
                     {
                         "time_epoch": 1735840800,
@@ -1126,7 +1125,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Clear",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/113.png",
-                            "code": 1000
+                            "code": 1000,
                         },
                         "wind_mph": 13.0,
                         "wind_kph": 20.9,
@@ -1164,8 +1163,8 @@ eg_forecast_response = {
                             "pm2_5": 26.825,
                             "pm10": 28.86,
                             "us-epa-index": 2,
-                            "gb-defra-index": 3
-                        }
+                            "gb-defra-index": 3,
+                        },
                     },
                     {
                         "time_epoch": 1735844400,
@@ -1176,7 +1175,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Partly Cloudy ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
-                            "code": 1003
+                            "code": 1003,
                         },
                         "wind_mph": 11.6,
                         "wind_kph": 18.7,
@@ -1214,8 +1213,8 @@ eg_forecast_response = {
                             "pm2_5": 33.3,
                             "pm10": 37.74,
                             "us-epa-index": 2,
-                            "gb-defra-index": 3
-                        }
+                            "gb-defra-index": 3,
+                        },
                     },
                     {
                         "time_epoch": 1735848000,
@@ -1226,7 +1225,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Partly Cloudy ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
-                            "code": 1003
+                            "code": 1003,
                         },
                         "wind_mph": 10.7,
                         "wind_kph": 17.3,
@@ -1264,8 +1263,8 @@ eg_forecast_response = {
                             "pm2_5": 27.195,
                             "pm10": 33.855,
                             "us-epa-index": 2,
-                            "gb-defra-index": 3
-                        }
+                            "gb-defra-index": 3,
+                        },
                     },
                     {
                         "time_epoch": 1735851600,
@@ -1276,7 +1275,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Clear ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/113.png",
-                            "code": 1000
+                            "code": 1000,
                         },
                         "wind_mph": 8.9,
                         "wind_kph": 14.4,
@@ -1314,8 +1313,8 @@ eg_forecast_response = {
                             "pm2_5": 32.745,
                             "pm10": 37.555,
                             "us-epa-index": 2,
-                            "gb-defra-index": 3
-                        }
+                            "gb-defra-index": 3,
+                        },
                     },
                     {
                         "time_epoch": 1735855200,
@@ -1326,7 +1325,7 @@ eg_forecast_response = {
                         "condition": {
                             "text": "Clear ",
                             "icon": "//cdn.weatherapi.com/weather/64x64/night/113.png",
-                            "code": 1000
+                            "code": 1000,
                         },
                         "wind_mph": 6.9,
                         "wind_kph": 11.2,
@@ -1364,11 +1363,11 @@ eg_forecast_response = {
                             "pm2_5": 46.99,
                             "pm10": 52.17,
                             "us-epa-index": 3,
-                            "gb-defra-index": 5
-                        }
-                    }
-                ]
+                            "gb-defra-index": 5,
+                        },
+                    },
+                ],
             }
         ]
-    }
+    },
 }

@@ -24,7 +24,6 @@ class Condition(TypedDict):
     code: int
 
 
-
 class Astro(TypedDict):
     sunrise: str
     sunset: str
@@ -184,6 +183,4 @@ class WeatherAdapter:
                 status_code=response.status_code, error=response.json()
             )
         data = WeatherForecast(**response.json())
-        return AdapterResponse(
-            status_code=response.status_code, data=data
-        )
+        return AdapterResponse(status_code=response.status_code, data=data)

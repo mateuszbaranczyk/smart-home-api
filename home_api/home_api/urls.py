@@ -10,5 +10,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(garlight_urls)),
     path("", include(authentication_urls)),
-    path("", include(aura_urls))
+    path("", include(aura_urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

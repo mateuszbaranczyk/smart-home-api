@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    'rest_framework.authtoken',
+    "rest_framework.authtoken",
     "drf_spectacular",
     "garlight",
     "authentication",
@@ -129,5 +129,5 @@ if SECRET_KEY == UNSECURE:
     print("Warning: SECRET_KEY is insecure")
 if CSRF_ORIGIN == "":
     print("Warning: CSRF_ORIGIN is not set")
-if DEVELOPER == "True":
+if DEVELOPER is True:
     print("Warning: Developer mode is on")
