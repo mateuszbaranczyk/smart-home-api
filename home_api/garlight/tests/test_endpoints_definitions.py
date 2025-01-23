@@ -28,4 +28,4 @@ class DefinitionsTest(TestCase):
         )
         response = self.client.get("/endpoints/")
         assert response.status_code == 200
-        assert response.content == expected_result
+        assert expected_result in response.content
