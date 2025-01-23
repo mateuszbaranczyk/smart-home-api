@@ -104,7 +104,7 @@ class GarminEndpointsViewSet(ListModelMixin, GenericViewSet, GarminAuth):
             forecast_endpoint = (
                 f"---- forecast,Forecast,/forecast/{location}\n"
             )
-            endpoints.join(
+            endpoints += (
                 location_definition + current_endpoint + forecast_endpoint
             )
         return endpoints
