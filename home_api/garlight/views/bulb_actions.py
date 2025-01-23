@@ -1,3 +1,4 @@
+from aura.models import Location
 from authentication.views import Auth, GarminAuth
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
@@ -89,9 +90,23 @@ class GarminEndpointsViewSet(ListModelMixin, GenericViewSet, GarminAuth):
             self.get_device_actions(device_name)
             for device_name in device_names
         ]
+        weather = self.get_weather_endpoints()
         return HttpResponse(
-            all + "".join(by_device), content_type="text/plain"
+            all + "".join(by_device) + weather, content_type="text/plain"
         )
+
+    def get_weather_endpoints(self):
+        endpoints = "-- weather,Weather\n"
+        locations = Location.objects.values_list("name", flat=True).distinct()
+        for location in locations:
+            location_definition = f"-- {location},{location.capitalize()}\n"
+            current_endpoint = f"---- current,Current,/current/{location}\n"
+            forecast_endpoint = (
+                f"---- forecast,Forecast,/forecast/{location}\n"
+            )
+            endpoints.join(
+                location_definition + current_endpoint + forecast_endpoint
+            )
 
     def get_device_actions(self, device_name: str) -> str:
         endpoints_for_device = Endpoint.objects.filter(
