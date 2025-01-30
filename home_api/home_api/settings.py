@@ -9,7 +9,7 @@ UNSECURE = "FDASFGHgfdsggsdls';ddsadsadghfdnkopa9-0fi9qfjcdsadsa#4h!@0@0$&-6!3!q
 SECRET_KEY = os.getenv("SECRET_KEY", UNSECURE)
 
 DEVELOPER = bool(os.getenv("DEVELOPER", False))
-
+WEATHER_API_KEY = os.getenv("WEATHER_API_KEY", "")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if DEVELOPER is False else True
 
@@ -23,10 +23,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    'rest_framework.authtoken',
+    "rest_framework.authtoken",
     "drf_spectacular",
     "garlight",
     "authentication",
+    "aura",
 ]
 
 REST_FRAMEWORK = {
@@ -67,7 +68,7 @@ WSGI_APPLICATION = "home_api.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "database" / "db.sqlite3",
     }
 }
 
@@ -128,5 +129,5 @@ if SECRET_KEY == UNSECURE:
     print("Warning: SECRET_KEY is insecure")
 if CSRF_ORIGIN == "":
     print("Warning: CSRF_ORIGIN is not set")
-if DEVELOPER == "True":
+if DEVELOPER is True:
     print("Warning: Developer mode is on")

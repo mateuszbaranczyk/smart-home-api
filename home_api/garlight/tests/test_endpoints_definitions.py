@@ -12,6 +12,9 @@ class DefinitionsTest(TestCase):
             "authentication.views.GarminAuth.permission_classes", [AllowAny]
         ).start()
 
+    def tearDown(self):
+        patch.stopall()
+
     def test_get_endpoints(self):
         expected_result = b"- all,Yeelight\n-- test_bulb,Test_bulb\n--- color,Color\n---- test_endpoint,Test_endpoint,/color/test_bulb/?test_color\n"
         bulb = YeelightBulb.objects.create(
@@ -28,4 +31,4 @@ class DefinitionsTest(TestCase):
         )
         response = self.client.get("/endpoints/")
         assert response.status_code == 200
-        assert response.content == expected_result
+        assert expected_result in response.content

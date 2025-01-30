@@ -165,3 +165,5 @@ staticfiles/
 todo
 dump*
 .vscode/launch.json
+docker-compose.yaml
+poetry.lock
