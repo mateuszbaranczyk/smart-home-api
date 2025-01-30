@@ -7,7 +7,7 @@ For more information go to [wiki](https://github.com/mateuszbaranczyk/smart-home
 Prepare the environment by installing Poetry, then run `poetry install` and `poetry shell`. Change the directory to `/home_api`. To start Django, run `python3 manage.py runserver`.
 
 ## Tests
-Run tes in `home_api` directory.
+Run tests in `home_api` directory.
 ```bash
 pytest
 # for coverage
@@ -15,31 +15,32 @@ pytest --cov
 ```
 
 ## Deployment
-Create a `.env` file in the root directory as follows:
-```
-SECRET_KEY=unsafe
-CSRF_ORIGIN=http://localhost:8000
-```
-Create `docker-compose.yaml` and replace volume path. Here sqlite db will be saved.
+
+Create `docker-compose.yaml` as follows and adjust volume path and env variables.
 ```yaml
 services:
   backend:
     container_name: garlight
     build: .
-    env_file: .env
+    environment:
+      PORT: 8000
+      CSRF_ORIGIN: http://localhost:${PORT}
+      SECRET_KEY: T0pS3cReT
+      WEATHER_API_KEY: 112mn12sda3mfd
+      DEVELOPER: "False"
+      DJANGO_SUPERUSER_EMAIL: admin@example.com
+      DJANGO_SUPERUSER_USERNAME: admin
+      DJANGO_SUPERUSER_PASSWORD: admin
     network_mode: host
     volumes:
-      - /your/path/to/database:/app/home_api/database
+      - /code/smart-home-api/database:/app/home_api/database
 
 ```
 
-Before you build the Docker image, run:
+Run docker by:
 ```bash
-python3 manage.py collectstatic
-python3 manage.py makemigrations
-python3 manage.py migrate
+docker compose up -d
 ```
-and then `docker compose up -d`.
 
 Some Garmin models require an HTTPS connection. In this case, I am using a Cloudflare tunnel with forced HTTPS connection.
 ![Diagram](gl.drawio.png)
