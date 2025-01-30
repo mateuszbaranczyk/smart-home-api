@@ -1,8 +1,0 @@
-services:
-  backend:
-    container_name: garlight
-    build: .
-    env_file: .env
-    network_mode: host
-    volumes:
-      - /your/path/to/database:/app/home_api/database
