@@ -96,14 +96,14 @@ class GarminEndpointsViewSet(ListModelMixin, GenericViewSet, GarminAuth):
         )
 
     def get_weather_endpoints(self):
-        endpoints = "-- weather,Weather\n"
+        endpoints = ""
         locations = Location.objects.values_list("name", flat=True).distinct()
         for location in locations:
-            location_definition = f"-- {location},{location.capitalize()}\n"
-            current_endpoint = f"---- current,Current,/current/{location}\n"
-            forecast_endpoint = (
-                f"---- forecast,Forecast,/forecast/{location}\n"
+            location_definition = (
+                f"-- {location},{location.capitalize()} (Weather)\n"
             )
+            current_endpoint = f"--- current,Current,/current/{location}\n"
+            forecast_endpoint = f"--- forecast,Forecast,/forecast/{location}\n"
             endpoints += (
                 location_definition + current_endpoint + forecast_endpoint
             )
