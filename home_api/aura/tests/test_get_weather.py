@@ -1,4 +1,3 @@
-
 from unittest.mock import patch
 
 from django.test import TestCase
@@ -19,7 +18,7 @@ class WeatherAdapterTest(TestCase):
         m_requests.return_value.json.return_value = eg_forecast_response
         adapter_response = self.adapter.get_weather()
         assert adapter_response.status_code == 200
-        assert adapter_response.data.location['name'] == "Piastow"
+        assert adapter_response.data.location["name"] == "Piastow"
 
     @patch("aura.adapters.requests.get")
     def test_get_weather_error(self, m_requests):
