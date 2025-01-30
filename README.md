@@ -3,20 +3,10 @@ This is an API for managing smart home devices designed to work with Garmin and 
 
 For more information go to [wiki](https://github.com/mateuszbaranczyk/smart-home-api/wiki)
 
-## Development
-Prepare the environment by installing Poetry, then run `poetry install` and `poetry shell`. Change the directory to `/home_api`. To start Django, run `python3 manage.py runserver`.
-
-## Tests
-Run tests in `home_api` directory.
-```bash
-pytest
-# for coverage
-pytest --cov
-```
 
 ## Deployment
 
-Create `docker-compose.yaml` as follows and adjust volume path and env variables.
+Create `docker-compose.yaml` as follows, then adjust volume path and env variables.
 ```yaml
 services:
   backend:
