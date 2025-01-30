@@ -5,8 +5,8 @@ For more information go to [wiki](https://github.com/mateuszbaranczyk/smart-home
 
 
 ## Deployment
-
-Create `docker-compose.yaml` as follows, then adjust volume path and env variables.
+1. Clone the repository.
+2. Create a `docker-compose.yaml` file as follows, then adjust the volume path and environment variables.
 ```yaml
 services:
   backend:
@@ -23,7 +23,7 @@ services:
       DJANGO_SUPERUSER_PASSWORD: admin
     network_mode: host
     volumes:
-      - /code/smart-home-api/database:/app/home_api/database
+      - /path/database:/app/home_api/database
 
 ```
 
