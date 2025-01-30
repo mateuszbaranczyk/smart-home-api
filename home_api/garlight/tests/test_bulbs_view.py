@@ -13,6 +13,9 @@ class BulbsViewTest(TestCase):
             "authentication.views.Auth.permission_classes", [AllowAny]
         ).start()
 
+    def tearDown(self):
+        patch.stopall()
+
     def test_create_bulb_not_allowed(self):
         data = {"test": "test"}
         response = self.client.post(reverse("bulb-list"), data)

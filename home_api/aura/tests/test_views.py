@@ -15,6 +15,9 @@ class LocationViewSetTest(TestCase):
         ).start()
         self.location_data = {"name": "test", "lat": 20, "lon": 20}
 
+    def tearDown(self):
+        patch.stopall()
+
     def test_create_location(self):
         response = self.client.post(
             reverse("location-list"), self.location_data
@@ -106,8 +109,11 @@ class WeatherDefinitionsViewTest(TestCase):
         self.location_data = {"name": "test", "lat": 20, "lon": 20}
         self.location = Location.objects.create(**self.location_data)
 
+    def tearDown(self):
+        patch.stopall()
+
     def test_get_weather(self):
-        expected = b"-- weather,Weather\n-- test,Test\n---- current,Current,/current/test\n---- forecast,Forecast,/forecast/test\n-- Test2,Test2\n---- current,Current,/current/Test2\n---- forecast,Forecast,/forecast/Test2\n"
+        expected = b"- all,Yeelight\n-- test,Test (Weather)\n--- current,Current,/current/test\n--- forecast,Forecast,/forecast/test\n-- Test2,Test2 (Weather)\n--- current,Current,/current/Test2\n--- forecast,Forecast,/forecast/Test2\n"
         self.location_data["name"] = "Test2"
         Location.objects.create(**self.location_data)
         response = self.client.get("/endpoints/")

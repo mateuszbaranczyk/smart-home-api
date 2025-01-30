@@ -20,6 +20,9 @@ class ColorsViewTest(TestCase):
             "authentication.views.Auth.permission_classes", [AllowAny]
         ).start()
 
+    def tearDown(self):
+        patch.stopall()
+
     def test_create_color(self):
         response = self.client.post(reverse("colors-list"), self.color_data)
         result = Color.objects.get(name=self.color_data["name"])
